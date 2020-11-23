@@ -26,6 +26,8 @@ import { first } from 'rxjs/operators';
 })
 export class DashboardComponent implements OnInit {
   occupancyist: Array<number> = new Array<number>(8);
+  occupanctdates: Array<string> = new Array<string>(8);
+
   lineChartData: ChartDataSets[] = [
     { data:this.occupancyist, label: 'Occupancy Rates' },
   ];
@@ -272,8 +274,18 @@ export class DashboardComponent implements OnInit {
       let t1 = formatDate(t, 'yyyy-MM-ddT00:00:00', 'en');
       this.service.Occupancy(t1)
       .subscribe(
-        (response) => {                           //next() callback
-        console.log('Occupancy list received :::  ')
+        (response) => {   
+      
+        console.log('Occupancy list received :::  ');
+        for(let i =0;i<8;i++)
+        {
+          var nextDay = new Date();
+          nextDay.setDate(nextDay.getDate()+i);//next() callback
+          console.log('next date')
+          console.log(nextDay)
+         this.occupanctdates[i] = formatDate(nextDay, 'yyyy-MM-dd', 'en'); 
+        }
+        this.lineChartLabels= this.occupanctdates
         this.occupancyist = response
         this.lineChartData= [
           { data:this.occupancyist, label: 'Occupancy Rates' },
