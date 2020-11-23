@@ -1,0 +1,19 @@
+.login-screen {
+    height: 650px;
+    background-color: #e4c18b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.login-form {
+    background-color:white;
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow-l);
+    padding: var(--space-xxl);
+    min-width: 435px;
+    z-index: 2;
+    height:500px;
+}
+.red-border-class {
+    border: solid 1px red;
+  }

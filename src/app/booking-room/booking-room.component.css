@@ -1,0 +1,22 @@
+th.sortable {
+    cursor: pointer;
+}
+.btn-primary {
+    position:relative;
+    left:950px;
+    background-color:#e4c18b;
+    border: var(--border-size-s) solid var(--color-primary);
+    color: var(--color-neutral-0);
+}
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.active a {
+    font-weight: bold;
+   color:rgb(202, 56, 56) !important;
+}

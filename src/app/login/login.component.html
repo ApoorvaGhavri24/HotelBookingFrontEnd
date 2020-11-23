@@ -1,0 +1,34 @@
+<div class="login-screen">
+<form  #loginform="ngForm"  (ngSubmit)="checkuser()"  class="login-form" novalidate>
+    <div data-container="" class="login-logo" style="text-align: center;"><div data-container="" style="text-align: center;padding-top:40px;">
+        <img data-image="" src="https://apoorva-ghavri.outsystemscloud.com/Bookings/img/Bookings.bookings_logo.png?Fo5gb+8Muc4l6d1qseGz_w" alt="" style="height: 100px;">
+</div>
+    <div style="font-size: 20px;font-weight:bold;margin-top:20px;"  class="margin-top-base"><span data-expression="" class=" text-neutral-8">Bookings</span>
+    </div>
+<div  style="margin-bottom:50px;">
+  <span style= "color:red;" *ngIf="notvalid" >
+    *invalid username or password
+  </span>
+</div>
+   
+</div>
+<div>
+    <div class="form-group" style="padding-left:60px; margin-bottom:30px;" >
+        <input type="text"placeholder="username"   name="Username"  #Username="ngModel"  id="Username"    class="form-control " [(ngModel)]="usnameinput" style="width:300px;position: relative;"   [ngClass]="{'red-border-class': Username.errors  && (Username.dirty || Username.touched)}" class="form-control"  required  >
+        <span style= " position: absolute;color:red;" *ngIf="!Username?.valid  && (Username?.dirty || Username?.touched)" >
+          *enter  username
+        </span>
+      </div>
+      
+      <div class="form-group" style="padding-left:60px; margin-top:30px;"  >
+        <input type="password" placeholder="password" name="Password"  #Password="ngModel"  id="Password"    class="form-control " [(ngModel)]="passwordinput" style="width:300px;position: relative;" [ngClass]="{'red-border-class': Password.errors  && (Password.dirty || Password.touched)}"   class="form-control" required  >
+        <span style= " position: absolute;color:red;" *ngIf="!Password?.valid  && (Password?.dirty || Password?.touched)" >
+          *enter  password
+        </span>
+      </div>
+      <button [disabled]="!loginform.valid"  class="btn btn-primary" style="width:200px;margin-left:105px;margin-top:30px; background-color: #e4c18b;">login</button>
+  
+</div>
+
+</form>
+</div>

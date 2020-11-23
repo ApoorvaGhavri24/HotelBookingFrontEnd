@@ -1,0 +1,147 @@
+
+<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #ffeecc
+;">
+  <div data-container="" class="application-name display-flex align-items-center full-height" role="button" tabindex="0" id="b2-b1-ApplicationTitleWrapper" style="cursor: pointer;padding-right:20px;">
+    <img data-image="" class="app-logo" src="https://apoorva-ghavri.outsystemscloud.com/Bookings/img/Bookings.bookings_logo.png?Fo5gb+8Muc4l6d1qseGz_w" alt="" id="b2-b1-AppLogo" style="height: 32px;">
+  </div>
+  <a class="navbar-brand" href="#">Bookings</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item "   routerLinkActive="active">
+        <a class="nav-link newlink " routerLink="/Dashboard">Home <span class="sr-only">(current)</span></a>
+      </li>
+     
+      <li class="nav-item"   routerLinkActive="active">
+        <a class="nav-link newlink "  routerLink="/Room">Rooms</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link newlink "  routerLink="/Booking">Bookings</a>
+      </li>
+      <li class="nav-item" style="margin-left:850px;">
+        <a class="nav-link newlink "  routerLink="/">
+          <img  style="height: 20px;width:20px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR_1LT-FqaCYMvwFvkMsvd1xxtJp957mrg8pw&usqp=CAU" />
+
+          Login</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+  
+<div class="container">
+  <br/>
+<form #contactForm="ngForm"  (ngSubmit)="open(mymodal)" style="background-color: #f8f8f6;padding-left:50px;width:500px;padding-top:30px;padding-bottom:30px;" novalidate>
+ 
+  <div class="form-group" style="margin-bottom:30px;" >
+    <label for="roomNumber" style="font-weight: bold;">Room Number</label>
+    <div *ngIf="editroom; then thenBlock6 else elseBlock6"></div>
+    <ng-template #thenBlock6>      <input  type="number" min="4" step="1" name="roomNumber"  #roomNumber="ngModel"  id="roomNumber" style="width:300px;position: relative;" [ngClass]="{'red-border-class': roomNumber.errors}" required   class="form-control " [(ngModel)]="room.roomNumber" readonly >
+      <span style= " position: absolute;color:red;" *ngIf="!roomNumber?.valid  && (roomNumber?.dirty || roomNumber?.touched)">
+        *enter room number
+      </span>
+    </ng-template>
+    <ng-template #elseBlock6>       <input  type="number" min="4" step="1" name="roomNumber"  #roomNumber="ngModel"  id="roomNumber" style="width:300px;position: relative;" [ngClass]="{'red-border-class': roomNumber.errors}" required   class="form-control " [(ngModel)]="room.roomNumber" >
+    
+      <span style= " position: absolute;color:red;" *ngIf="!roomNumber?.valid  && (roomNumber?.dirty || roomNumber?.touched)">
+        *enter room number
+      </span></ng-template>
+  
+ 
+  </div>
+ 
+  <div class="form-group" style="margin-bottom:30px;" >
+    <label for="adultsCapacity" style="font-weight: bold;">Adult Capacity</label>
+    <input type="number"  name="adultsCapacity" (ngModelChange)="validateWhite($event)" #adultsCapacity="ngModel" id="adultsCapacity" style="width:300px;position: relative;" [ngClass]="{'red-border-class': adultsCapacity.errors || wrong }" required  class="form-control text-line "  [(ngModel)]="room.adultsCapacity" >
+  
+  <div *ngIf="wrong; then thenBlock8 else elseBlock8"></div>
+  <ng-template #thenBlock8>  
+    <span style= " position: absolute;color:red;">
+     * Adult capacity cannot be less than 1 
+  </span>
+  </ng-template>
+  <ng-template #elseBlock8>  </ng-template>
+       <span style= " position: absolute;color:red;" *ngIf="!adultsCapacity?.valid && (adultsCapacity?.dirty || adultsCapacity?.touched)">
+      *enter adult capacity
+    </span>
+  </div>
+ 
+  <div class="form-group" >
+    <label for="childrenCapacity" style="font-weight: bold;">Child Capacity </label>
+    <input type="number"  name="childrenCapacity"  id="childrenCapacity" style="width:300px;position: relative;"   class="form-control"  [(ngModel)]="room.childrenCapacity" >
+  </div>
+  <div class="form-group" style="margin-bottom:30px;" >
+    <label for="price" style="font-weight: bold;">Price</label>
+    <input type="number" name="pice"  #price="ngModel" id="price" style="width:300px;position: relative;"   class="form-control"  [(ngModel)]="room.price" [ngClass]="{'red-border-class': price.errors}" required  >
+    <span style= " position: absolute;color:red;"  *ngIf="!price?.valid && (price?.dirty || price?.touched)">
+      *enter price
+    </span>
+  </div>
+
+ 
+ 
+  
+  <div *ngIf="editroom; then thenBlock else elseBlock"></div>
+      <ng-template #thenBlock>    <button type="submit" [disabled]="!contactForm.valid"    class="btn btn-primary" style="margin-top:20px;">Save</button>
+      </ng-template>
+      <ng-template #elseBlock>   <button type="submit" [disabled]="!contactForm.valid"   class="btn btn-primary" style="margin-top:20px;margin-left:10px;">Add</button>
+      </ng-template>
+      <button  routerLink="/Room" class="btn btn-primary" style="margin-left:50px;margin-top:20px;">Back</button>
+  
+</form>
+
+
+
+
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header" style="background-color: skyblue;">
+<h4 class="modal-title" id="modal-basic-title">Alert !!</h4>
+<div>
+    <div *ngIf="roomadded; then thenBlock2 else elseBlock2"></div>
+    <ng-template #thenBlock2>   
+         <button type="button"  routerLink="/Room" style="margin-right:0px;" class="" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+      <span >×</span>
+    </button>
+    </ng-template>
+    <ng-template #elseBlock2>     
+      <div *ngIf="updatedsucc; then thenBlock5 else elseBlock5"></div>
+      <ng-template #thenBlock5>   
+           <button type="button"  routerLink="/Room" style="margin-right:0px;" class="" aria-label="Close" (click)="modal.dismiss('Cross click')">
+  
+        <span >×</span>
+      </button>
+      </ng-template>
+      <ng-template #elseBlock5>     
+         <button type="button" style="margin-right:0px;"  class="" aria-label="Close" (click)="modal.dismiss('Cross click')">
+  
+        <span >×</span>
+      </button>
+      </ng-template>
+    </ng-template>
+  </div>
+  </div>
+  <div class="modal-body" style="font-weight: bold;">
+    {{message}}
+  </div>
+  <div class="modal-footer">
+    
+    <div *ngIf="roomadded; then thenBlock3 else elseBlock3"></div>
+    <ng-template #thenBlock3>   
+      <button type="button"  routerLink="/Room" class="btn " (click)="modal.close('Save click')">Ok</button>
+    </ng-template>
+    <ng-template #elseBlock3>     
+      <div *ngIf="updatedsucc; then thenBlock4 else elseBlock4"></div>
+      <ng-template #thenBlock4>   
+        <button type="button"  routerLink="/Room" class="btn " (click)="modal.close('Save click')">Ok</button>
+      </ng-template>
+      <ng-template #elseBlock4>     
+        <button type="button" class="" (click)="modal.close('Save click')">Ok</button>
+      </ng-template>
+    </ng-template>
+  </div>
+</ng-template>
+</div>

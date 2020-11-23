@@ -1,0 +1,244 @@
+
+<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #ffeecc
+;">
+  <div data-container="" class="application-name display-flex align-items-center full-height" role="button" tabindex="0" id="b2-b1-ApplicationTitleWrapper" style="cursor: pointer;padding-right:20px;">
+    <img data-image="" class="app-logo" src="https://apoorva-ghavri.outsystemscloud.com/Bookings/img/Bookings.bookings_logo.png?Fo5gb+8Muc4l6d1qseGz_w" alt="" id="b2-b1-AppLogo" style="height: 32px;">
+  </div>
+  <a class="navbar-brand" href="#">Bookings</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item " routerLinkActive="active">
+        <a class="nav-link newlink " routerLink="/Dashboard">Home <span class="sr-only">(current)</span></a>
+      </li>
+     
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link newlink "  routerLink="/Room">Rooms</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link newlink "  routerLink="/Booking">Bookings</a>
+      </li>
+     
+      <li class="nav-item" style="margin-left:850px;">
+        <a class="nav-link newlink "  routerLink="/">
+          <img  style="height: 20px;width:20px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR_1LT-FqaCYMvwFvkMsvd1xxtJp957mrg8pw&usqp=CAU" />
+
+          Login</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+  
+<div class="container">
+
+<div style="padding-top:50px;margin-left: -50px;;">
+
+    <img data-image=""  style = "width:1200px;height: 300px;" src="https://apoorva-ghavri.outsystemscloud.com/Bookings/img/Bookings.room_banner.jpg?crzUnQy+eXWeNPALktoW9w">
+  
+  </div>
+  <div style="margin-top:50px;     display: flex;margin-bottom:50px; ">
+    <div>
+      <div *ngIf="emptycheckinlist; then thenshowckekin else elseshowckekin"></div>
+      <ng-template #thenshowckekin>   
+        <div   style="padding-top:10px;margin-left:-50px;width:550px; height:40px;background-color: rgb(215, 217, 218); ">
+          <img style="height:20px;width:20px;margin-left:10px;margin-right:10px;background-color: gray;"
+           src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRjalWEXJU5hgYHIdk9-g0ej0UwldHvLlSPqg&usqp=CAU"><span style="font-size: 24px; font-weight: bold;">No ckeckin  Today</span></div>
+        
+      </ng-template>
+      <ng-template #elseshowckekin>     
+        <div   style="padding-top:10px;margin-left:-50px;width:550px; height:40px;background-color: rgb(215, 217, 218); ">
+          <img style="height:20px;width:20px;margin-left:10px;margin-right:10px;background-color: gray;"
+           src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRjalWEXJU5hgYHIdk9-g0ej0UwldHvLlSPqg&usqp=CAU"><span style="font-size: 24px; font-weight: bold;">Checking In Today</span></div>
+     <div>
+      <div class='table-responsive' style="padding-left:20px;margin-left:-50px;;width:550px;border:10px  black ;background-color: #f3f6f8;">
+        <table  class='table table-row'>
+           
+            <tbody>
+                <tr *ngFor="let roomcurrent of Todaycheckins; let i = index">
+                  <td>
+                    <div data-container="">
+                      <div data-block="MainFlow.GuestName" class="OSBlockWidget" id="l1_0-13_0-$b4">
+                        <span data-expression="" style="margin-left: 0px; color: rgb(228, 192, 139); font-weight: bold;">
+                          {{roomcurrent.guestFirstName}}
+                        </span>
+                        <span data-expression="" style="margin-left: 0px; color: rgb(228, 192, 139);">
+                          , {{roomcurrent.guestLastName}}
+                        </span>
+                      </div>
+                    </div>
+                    <div data-container="" class="ThemeGrid_Width8">
+                      <span data-expression="">{{roomcurrent.checkOutDate | date:'dd/MM/yyyy'}}
+  
+                      </span>
+                    </div>
+                  </td>
+                  <td><span data-expression="">{{roomcurrent.room.roomNumber}}</span></td>
+                  <td style="padding-left:80px;"><button data-button="" (click)="Checkin(roomcurrent.id)"  style="background-color:#e4c18b;" class="btn btn-primary" type="button">Check in</button>
+                  </td>
+                  </tr>
+            </tbody>
+          <tfoot>
+         
+          </tfoot>
+      
+        
+        </table>
+      
+    </div>
+     </div>
+      </ng-template>
+
+
+   
+    </div>
+    <div  style="margin-left:140px" >
+      <div *ngIf="emptycheckoutlist; then thencheckout else elsecheckout"></div>
+      <ng-template #thencheckout>   
+        <div   style="padding-top:10px;margin-left:-50px;width:550px; height:40px;background-color: rgb(215, 217, 218); ">
+          <img style="height:20px;width:20px;margin-left:10px;margin-right:10px;background-color: gray;"
+           src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRjalWEXJU5hgYHIdk9-g0ej0UwldHvLlSPqg&usqp=CAU"><span style="font-size: 24px; font-weight: bold;"> No check-outs Today</span></div>
+   
+      </ng-template>
+      <ng-template #elsecheckout>     
+        <div   style="padding-top:10px;margin-left:-50px;width:550px; height:40px;background-color: rgb(215, 217, 218); ">
+          <img style="height:20px;width:20px;margin-left:10px;margin-right:10px;background-color: gray;"
+           src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRjalWEXJU5hgYHIdk9-g0ej0UwldHvLlSPqg&usqp=CAU"><span style="font-size: 24px; font-weight: bold;">check-outs Today</span></div>
+     <div>
+      <div class='table-responsive' style="padding-left:20px;margin-left:-50px;;width:550px;border:10px  black ;background-color: #f3f6f8;">
+        <table  class='table table-row'>
+           
+            <tbody>
+                <tr *ngFor="let roomcurrent2 of TodaycheckOuts; let i = index">
+                  <td>
+                    <div data-container="">
+                      <div data-block="MainFlow.GuestName" class="OSBlockWidget" id="l1_0-13_0-$b4">
+                        <span data-expression="" style="margin-left: 0px; color: rgb(228, 192, 139); font-weight: bold;">
+                          {{roomcurrent2.guestFirstName}}
+                        </span>
+                        <span data-expression="" style="margin-left: 0px; color: rgb(228, 192, 139);">
+                          , {{roomcurrent2.guestLastName}}
+                        </span>
+                      </div>
+                    </div>
+                    <div data-container="" class="ThemeGrid_Width8">
+                      <span data-expression="">{{roomcurrent2.checkOutDate | date:'dd/MM/yyyy'}}
+  
+                      </span>
+                    </div>
+                  </td>
+                  <td><span data-expression="">{{roomcurrent2.room.roomNumber}}</span></td>
+                  <td style="padding-left:80px;"><button data-button="" (click)="Checkout(roomcurrent2.id)"  style="background-color:#e4c18b;" class="btn btn-primary" type="button">Check out</button>
+                  </td>
+                  </tr>
+            </tbody>
+          <tfoot>
+         
+          </tfoot>
+      
+        
+        </table>
+      
+    </div>
+     </div>
+      
+      </ng-template>
+
+
+
+   
+    </div>
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  <div style="margin-top:50px;     display: flex;margin-bottom:50px; ">
+    <div>
+      <div   style="padding-top:10px;margin-left:-50px;width:550px; height:40px;background-color: rgb(215, 217, 218); ">
+        <img style="height:20px;width:20px;margin-left:10px;margin-right:10px;background-color: gray;"
+         src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRjalWEXJU5hgYHIdk9-g0ej0UwldHvLlSPqg&usqp=CAU"><span style="font-size: 24px; font-weight: bold;">Occupancy Rate</span></div>
+         
+         <div class="chart-wrapper">
+          <canvas baseChart 
+              [datasets]="lineChartData" 
+              [labels]="lineChartLabels" 
+              [options]="lineChartOptions"
+              [colors]="lineChartColors" 
+              [legend]="lineChartLegend" 
+              [chartType]="lineChartType" 
+              [plugins]="lineChartPlugins">
+          </canvas>
+      </div>
+
+   
+    </div>
+    <div  style="margin-left:140px" >
+      <div   style="padding-top:10px;margin-left:-50px;width:550px; height:40px;background-color: rgb(215, 217, 218); ">
+        <img style="height:20px;width:20px;margin-left:10px;margin-right:10px;background-color: gray;"
+         src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRjalWEXJU5hgYHIdk9-g0ej0UwldHvLlSPqg&usqp=CAU"><span style="font-size: 24px; font-weight: bold;"> Amenity Order</span></div>
+ 
+
+         <div style="display: flex;">
+                    <input  type="text"  name="firstname"  #firstname="ngModel"  id="firstname" style="width:200px;position: relative;margin-top:20px;" (keyup)="changeValue()"   class="form-control " [(ngModel)]="amenityroom.roomNumber"  >
+<span  *ngIf="showname"  style="margin-top:30px;margin-left:20px;">
+  {{amenitybooking.guestFirstName}}   {{amenitybooking.guestLastName}} 
+
+</span>
+
+         </div>
+
+<div >
+  <select style="margin-top:40px;width:200px;height:30px;" name="country" [(ngModel)] ="dropdownval" >
+    <option [ngValue]="c.id" *ngFor="let c of amenitylist">
+      {{c.label}}
+    </option>
+  </select>
+</div>
+       
+
+
+        <input  type="text"  name="amenityprice"  #amenityprice="ngModel"  id="amenityprice" style="width:200px;position: relative;margin-top:20px;"    class="form-control " [(ngModel)]="roomamenity.amenityPrice"  >
+
+        <div *ngIf="showbutton; then thenreadchiid else elsereadchiid"></div>
+        <ng-template #thenreadchiid>  
+          <button  *ngIf="show" data-button="" (click)="AssignAmenity()" style="background-color:#e4c18b;margin-top:20px;" class="btn btn-primary" type="button">Add Amenity</button>
+
+        </ng-template>
+        <ng-template #elsereadchiid>          
+          <span *ngIf="show"> Enter checked-in Room</span>
+        
+        </ng-template>
+
+
+    </div>
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+  </div>
+  </div>
+  

@@ -1,0 +1,18 @@
+
+
+
+/*a:active {
+    border: 2px solid #D4D4D4;
+    background-color: red
+}
+.active:target {
+    border: 2px solid #D4D4D4;
+    background-color: red
+}
+.active:focus {
+    border: 2px solid #D4D4D4;
+    background-color: red
+}*/
+.clicked{
+    background-color:red;
+}

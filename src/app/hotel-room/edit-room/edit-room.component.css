@@ -1,0 +1,38 @@
+.submitted input.ng-invalid {
+    border: solid 1px red;
+ }
+
+ /*Show red border if kept the input empty after touching*/
+.ng-touched.ng-invalid-required {
+    border-color: red;
+}
+/* Show red border when stuff has been typed in, but its invalid */
+.ng-dirty.ng-invalid {
+  border-color: red;
+}
+/*Show normal border color when typed in for the first time*/
+.ng-untouched.ng-invalid {
+    border-color: #ccc; 
+}
+.ng-submitted input.ng-invalid{
+    border-color: red;
+}
+.red-border-class {
+    border: solid 1px red;
+  }
+  input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
+.title .date { float:right }
+.title .name { float:left }
+.active a {
+    font-weight: bold;
+   color:rgb(202, 56, 56) !important;
+}

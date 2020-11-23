@@ -1,0 +1,257 @@
+<head>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+</head>
+<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #ffeecc
+;">
+  <div data-container="" class="application-name display-flex align-items-center full-height" role="button" tabindex="0" id="b2-b1-ApplicationTitleWrapper" style="cursor: pointer;padding-right:20px;">
+    <img data-image="" class="app-logo" src="https://apoorva-ghavri.outsystemscloud.com/Bookings/img/Bookings.bookings_logo.png?Fo5gb+8Muc4l6d1qseGz_w" alt="" id="b2-b1-AppLogo" style="height: 32px;">
+  </div>
+  <a class="navbar-brand" href="#">Bookings</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item "  routerLinkActive="active">
+        <a class="nav-link newlink " routerLink="/Dashboard">Home <span class="sr-only">(current)</span></a>
+      </li>
+     
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link newlink "  routerLink="/Room">Rooms</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link newlink "  routerLink="/Booking">Bookings</a>
+      </li>
+     
+      <li class="nav-item" style="margin-left:850px;">
+        <a class="nav-link newlink "  routerLink="/">
+          <img  style="height: 20px;width:20px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR_1LT-FqaCYMvwFvkMsvd1xxtJp957mrg8pw&usqp=CAU" />
+
+          Login</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container" >
+    <br/>
+
+    <form #contactForm="ngForm"   style="background-color: #f8f8f6;padding-left:50px;width:500px;padding-top:30px;padding-bottom:30px;" novalidate>
+ 
+    <div class="form-group" style="margin-bottom:30px;" >
+      <label for="lastname" style="font-weight: bold;">Last Name</label>
+      <div *ngIf="editroom; then thenreadln else elsereadln"></div>
+      <ng-template #thenreadln>      <input  type="text"  name="lastname"  #lastname="ngModel"  id="lastname" style="width:300px;position: relative;" [ngClass]="{'red-border-class': lastname.errors}" required   class="form-control " [(ngModel)]="curBooking.guestLastName" readonly >
+        <span style= " position: absolute;color:red;" *ngIf="!lastname?.valid  && (roomNumber?.dirty || roomNumber?.touched)">
+          *enter guest last name
+        </span>
+      </ng-template>
+      <ng-template #elsereadln>       <input  type="type"  name="lastname"  #lastname="ngModel"  id="lastname" style="width:300px;position: relative;" [ngClass]="{'red-border-class': lastname.errors}" required   class="form-control " [(ngModel)]="curBooking.guestLastName" >
+      
+        <span style= " position: absolute;color:red;" *ngIf="!lastname?.valid  && (lastname?.dirty || lastname?.touched)">
+          *enter guest last name
+        </span></ng-template>
+    
+   
+    </div>
+    <div class="form-group " style="margin-bottom:30px;" >
+        <label for="firstname" style="font-weight: bold;">First Name</label>
+        <div *ngIf="editroom; then thenreadfn else elsereadfn"></div>
+        <ng-template #thenreadfn>  
+             <input  type="text"  name="firstname"  #firstname="ngModel"  id="firstname" style="width:300px;position: relative;" [ngClass]="{'red-border-class': firstname.errors}" required   class="form-control " [(ngModel)]="curBooking.guestFirstName" readonly >
+           
+        </ng-template>
+        <ng-template #elsereadfn>       
+          <div *ngIf="false; then thenBlock7 else elseBlock7"></div>
+          <ng-template #thenBlock7>      <input  type="text"  name="firstname"  #firstname="ngModel"  id="firstname" style="width:300px;position: relative;" [ngClass]="{'red-border-class': firstname.errors}" required   class="form-control " [(ngModel)]="curBooking.guestFirstName" readonly >
+            <span style= " position: absolute;color:red;" *ngIf="!firstname?.valid  && (firstname?.dirty || firstname?.touched)">
+              *enter guest first name
+            </span>
+          </ng-template>
+          <ng-template #elseBlock7>       <input  type="text"  name="firstname"  #firstname="ngModel"  id="firstname" style="width:300px;position: relative;" [ngClass]="{'red-border-class': firstname.errors}" required   class="form-control " [(ngModel)]="curBooking.guestFirstName" >
+          
+            <span style= " position: absolute;color:red;" *ngIf="!firstname?.valid  && (firstname?.dirty || firstname?.touched)">
+              *enter guest first name
+            </span></ng-template>
+        
+        </ng-template>
+      
+     
+
+
+   
+     
+      </div>
+      <div class="form-group" style="width:300px;margin-bottom:30px;">
+        <label  style="font-weight: bold;">Check-in Date </label>
+       
+        <div class="input-group">
+
+          <div *ngIf="editroom; then thenreadci else elsereadci"></div>
+          <ng-template #thenreadci>    <input  type="text"  name="dp"  #dp="ngModel"  id="dp" style="width:300px;position: relative;"  [ngClass]="{'red-border-class': dp.errors}" required    class="form-control " [(ngModel)]="curBooking.checkInDate" readonly>
+        
+          </ng-template>
+        <ng-template #elsereadci>
+          <input class="form-control ngbfield" placeholder="yyyy-mm-dd" style="width:200px;position: relative;"
+          [minDate]="minDate"   name="dp"  #dp="ngModel"  id="dp" [(ngModel)]="curBooking.checkInDate"  [ngClass]="{'red-border-class': dp.errors}" required ngbDatepicker #d="ngbDatepicker">
+          <div style="position: relative;" class="input-group-append">
+            
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                          </button>
+          </div>  
+          <div >
+            <span style= " float:left;clear: left;color:red;" *ngIf="!dp?.valid  && (dp?.dirty || dp?.touched)">
+              *enter checkin date
+            </span> 
+          </div>   
+         
+         
+           </ng-template>
+          
+        </div>
+      </div>
+   
+      <div class="form-group" style="width:300px;margin-bottom:30px;">
+        <label  style="font-weight: bold;">Check-Out Date </label>
+      
+        <div class="input-group">
+
+          <div *ngIf="editroom; then thenreadco else elsereadco"></div>
+          <ng-template #thenreadco>    <input  type="text"  name="dp2"  #dp2="ngModel"  id="dp2" style="width:300px;position: relative;"  required   class="form-control " [(ngModel)]="curBooking.checkOutDate" readonly >
+        
+          </ng-template>
+        <ng-template #elsereadco>
+          
+          <input class="form-control" placeholder="yyyy-mm-dd" style="width:200px;position: relative;"
+          [minDate]="minDate"  name="dp2" id="dp2" #dp2="ngModel"  [(ngModel)]="curBooking.checkOutDate" [ngClass]="{'red-border-class': dp2.errors}" required ngbDatepicker #d2="ngbDatepicker">
+          <div style="position: relative;"  class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button">
+                          </button>
+                        
+          </div>  
+          <div >
+            <span style= " float:left;clear: left;color:red;" *ngIf="!dp2?.valid  && (dp2?.dirty || dp2?.touched)">
+              *enter checkout date
+            </span> 
+          </div>   
+         
+           </ng-template>
+
+          
+         
+        </div>
+        <div *ngIf="changecheckout">  {{message}} </div>
+      </div>
+      <div class="form-group" style="margin-bottom:30px;" >
+        <label for="adultsCapacity" style="font-weight: bold;">Adult Capacity</label>
+
+        <div *ngIf="editroom; then thenreadadult else elsereadadult"></div>
+        <ng-template #thenreadadult>  
+          <input type="number"  name="adultsCapacity"  #adultsCapacity="ngModel" id="adultsCapacity" style="width:300px;position: relative;" [ngClass]="{'red-border-class': adultsCapacity.errors }" required  class="form-control text-line "  [(ngModel)]="curBooking.numberOfAdults" readonly>
+
+        </ng-template>
+        <ng-template #elsereadadult> 
+          <input type="number"  name="adultsCapacity" (ngModelChange)="validateWhite($event)" #adultsCapacity="ngModel" id="adultsCapacity" style="width:300px;position: relative;" [ngClass]="{'red-border-class': adultsCapacity.errors || wrong }" required  class="form-control text-line "  [(ngModel)]="curBooking.numberOfAdults" >
+
+          <div *ngIf="wrong; then thenBlock8 else elseBlock8"></div>
+          <ng-template #thenBlock8>  
+            <span style= " position: absolute;color:red;">
+             * Adult capacity cannot be less than 1 
+          </span>
+          </ng-template>
+          <ng-template #elseBlock8>  </ng-template>
+               <span style= " position: absolute;color:red;" *ngIf="!adultsCapacity?.valid && (adultsCapacity?.dirty || adultsCapacity?.touched)">
+              *enter adult capacity
+            </span>  
+        </ng-template>
+
+        
+     
+      </div>
+     
+      <div class="form-group" >
+        <label for="childrenCapacity" style="font-weight: bold;">Child Capacity </label>
+        <div *ngIf="editroom; then thenreadchiid else elsereadchiid"></div>
+        <ng-template #thenreadchiid>  
+          <input type="number"  name="childrenCapacity"  id="childrenCapacity" style="width:300px;position: relative;"   class="form-control"  [(ngModel)]="curBooking.numberOfChildren" readonly>
+
+        </ng-template>
+        <ng-template #elsereadchiid>           <input type="number"  name="childrenCapacity"  id="childrenCapacity" style="width:300px;position: relative;"   class="form-control"  [(ngModel)]="curBooking.numberOfChildren" >
+        </ng-template>
+     
+      </div>
+   
+   <div *ngIf="roomfound"> Room {{bookroom.roomNumber}} at ${{bookroom.price}} per night</div>
+   <div *ngIf="editroom; then thenshowavail else elseshowavail"></div>
+   <ng-template #thenshowavail>  
+    <button type="submit" *ngIf="showCheckin"   (click)= "Checkin(mymodal)" class="btn btn-primary" style="margin-top:20px;margin-right:20px;">Check-In</button>
+    <button type="submit"  *ngIf="showCheckOut" (click)= "Checkout(mymodal)" class="btn btn-primary" style="margin-top:20px;margin-right:20px;">Check-Out</button>
+    <button type="submit" *ngIf="showCancel" (click)= "CancelBooking(mymodal)" class="btn btn-primary" style="margin-top:20px;margin-right:20px;">Cancel</button>
+    <button type="submit"   routerLink="/Booking" class="btn btn-primary" style="margin-top:20px;margin-left:20px">Back</button>
+
+   </ng-template>
+   <ng-template #elseshowavail>   
+    <button type="submit"    (click)="submitdata()" class="btn btn-primary" style="margin-top:20px;">get available room</button>
+    <button type="submit"  *ngIf="showBookroom"  (click)="BookNewRoom(mymodal)"  class="btn btn-primary" style="margin-top:20px;margin-left:20px">Book room</button>
+    <button type="submit"   routerLink="/Booking"  class="btn btn-primary" style="margin-top:20px;margin-left:20px">Back</button>
+
+              </ng-template>
+
+
+      
+  
+  </form>
+  
+ 
+  <hr/>
+  <ng-template #mymodal let-modal>
+    <div class="modal-header" style="background-color: skyblue;">
+  <h4 class="modal-title" id="modal-basic-title">Alert !!</h4>
+  <div>
+      <div *ngIf="bookingdone; then thenBlock2 else elseBlock2"></div>
+      <ng-template #thenBlock2>   
+           <button type="button"  routerLink="/Booking" style="margin-right:0px;" class="" aria-label="Close" (click)="modal.dismiss('Cross click')">
+  
+        <span >×</span>
+      </button>
+      </ng-template>
+      <ng-template #elseBlock2>     
+        <div *ngIf="updatedsucc; then thenBlock5 else elseBlock5"></div>
+        <ng-template #thenBlock5>   
+             <button type="button"  routerLink="/Booking" style="margin-right:0px;" class="" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    
+          <span >×</span>
+        </button>
+        </ng-template>
+        <ng-template #elseBlock5>     
+           <button type="button" style="margin-right:0px;"  class="" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    
+          <span >×</span>
+        </button>
+        </ng-template>
+      </ng-template>
+    </div>
+    </div>
+    <div class="modal-body" style="font-weight: bold;">
+      {{message}}
+    </div>
+    <div class="modal-footer">
+      
+      <div *ngIf="bookingdone; then thenBlock3 else elseBlock3"></div>
+      <ng-template #thenBlock3>   
+        <button type="button"  routerLink="/Booking" class="btn " (click)="modal.close('Save click')">Ok</button>
+      </ng-template>
+      <ng-template #elseBlock3>     
+        <div *ngIf="updatedsucc; then thenBlock4 else elseBlock4"></div>
+        <ng-template #thenBlock4>   
+          <button type="button"  routerLink="/Booking" class="btn " (click)="modal.close('Save click')">Ok</button>
+        </ng-template>
+        <ng-template #elseBlock4>     
+          <button type="button" class="" (click)="modal.close('Save click')">Ok</button>
+        </ng-template>
+      </ng-template>
+    </div>
+  </ng-template>
+</div>
