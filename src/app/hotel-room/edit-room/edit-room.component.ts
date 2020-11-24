@@ -28,19 +28,19 @@ export class EditRoomComponent implements OnInit {
   p: number = 1;
   value: string = ""; 
   closeResult: string;
-  wrong:boolean =false;
+  invalidAdultcapacity:boolean =false;
   //@ViewChild('contactForm',null) contactForm: NgForm;
   room= new Room();
   public idnew;
   constructor( private cookieService: CookieService,public service: RoomService,private route: ActivatedRoute,private router: Router,private modalService: NgbModal) {
 
   }
-  validateWhite(event: number) {
-    this.wrong = false;
+  validateadultcapacity(event: number) {
+    this.invalidAdultcapacity = false;
     if (event <1 &&  event!=null) {
-    this.wrong = true;
+    this.invalidAdultcapacity = true;
     } else {
-      this.wrong = false;
+      this.invalidAdultcapacity = false;
 
     }
   }
@@ -75,7 +75,7 @@ export class EditRoomComponent implements OnInit {
   onSubmit(contactForm) {
     console.log(contactForm.value);
   }
- 
+ //called when id=0 and adding new room
   addRoom() {
     
       if(this.room.childrenCapacity==null){
@@ -97,12 +97,11 @@ export class EditRoomComponent implements OnInit {
           this.roomadded = true;
         }
         
-       // this.router.navigateByUrl('/Room'); 
   
       })  ;
       
   }
-
+// called when id != 0 and we are updating room 
   UpdateRoom()
   {
  
@@ -114,28 +113,24 @@ export class EditRoomComponent implements OnInit {
       console.log(data)
       this.message = "Room Updated !!";
       this.updatedsucc = true;
-      // this.router.navigateByUrl('/Room');
     }) ;
   
-   // this.router.navigateByUrl('/Room');
   }
  
-  getRooms() {
-
-  }
+ 
 
   ngOnInit(): void {
-    console.log('input value');
     console.log(this.cookieService.get('username'));
     if(this.cookieService.get('username') !='apoorva')
     {
-      console.log('insise cookieservice');
       this.router.navigateByUrl('/');
     }
     this.loading = true;
     this.errorMessage = "";
+    //get the room id from the path 
     let id = this.route.snapshot.params.id;
     this.idnew = id;
+    //id id = 0  then add new room otherwise edit existing room
     if(id==0)
     {
       this.editroom = false;

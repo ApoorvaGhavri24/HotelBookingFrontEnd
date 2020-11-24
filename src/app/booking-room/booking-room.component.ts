@@ -31,7 +31,8 @@ export class BookingRoomComponent implements OnInit {
   ismanager : boolean = false;
   username = '';
   password='';
-  
+  key: string = 'guestLastName'; //set default
+  reverse: boolean = false;  
   isuser:boolean=false;
   constructor(public statusservice :StatusService,public roomservice:RoomService,private route: ActivatedRoute,public userservice: UserService ,private router: Router,public service: RoomService  , public bookingservice:BookingService,private cookieService: CookieService) 
   { 
@@ -39,7 +40,7 @@ export class BookingRoomComponent implements OnInit {
   }
 
   
-  getBookings2()  {
+ /* getBookings2()  {
      
     var bookingvar = [new Booking()];
     this.bookingservice.getBooking().subscribe(items => {
@@ -52,10 +53,9 @@ export class BookingRoomComponent implements OnInit {
     }
   );
   return this.bookingservice.getBooking();
-    // users => this.users = users,
-    // error => this.errorMsg = <any>error);
-  }
-
+    
+  }*/
+//called to get bookings and to get details of room assigned and the boooking status
    getBookings() {
      
     var bookingvar = [new Booking()];
@@ -110,11 +110,11 @@ export class BookingRoomComponent implements OnInit {
     this.Bookings = book;
     console.log('last names');
     for (let i = 0; i < this.Bookings.length; i++) {
-      console.log("hi " + this.Bookings[i]['guestLastName']);
+      console.log( this.Bookings[i]['guestLastName']);
     } 
   }
 
-  display2()
+ /* display2()
   {
     var t = new Date();
     var t2;
@@ -130,10 +130,10 @@ export class BookingRoomComponent implements OnInit {
         console.log('checkin expired');
       }
     } 
-  }
+  }*/
 
   
-  Editroom(id:number)
+  EditBooking(id:number)
   {
     this.router.navigateByUrl('/Booking/edit/'+id);
   }
@@ -148,12 +148,11 @@ export class BookingRoomComponent implements OnInit {
     {
       this.router.navigateByUrl('/');
     }
-   console.log(this.getBookings());
+    this.getBookings();
  
     
   }
-  key: string = 'guestLastName'; //set default
-  reverse: boolean = false;
+
   sort(key){
     this.key = key;
     this.reverse = !this.reverse;

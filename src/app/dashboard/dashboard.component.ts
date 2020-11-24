@@ -25,14 +25,14 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  occupancyist: Array<number> = new Array<number>(8);
-  occupanctdates: Array<string> = new Array<string>(8);
+  occupancyist: Array<number> = new Array<number>(8); // list to store occupancy rates for next 7 days
+  occupanctdates: Array<string> = new Array<string>(8);// list to store dates for next 7 days
 
   lineChartData: ChartDataSets[] = [
     { data:this.occupancyist, label: 'Occupancy Rates' },
   ];
 
-  lineChartLabels: Label[] = ['January', 'February', 'March', 'April', 'May', 'June' ,'July','August'];
+  lineChartLabels: Label[] ;
 
   lineChartOptions = {
     responsive: true,
@@ -52,7 +52,6 @@ export class DashboardComponent implements OnInit {
 
 
   Todaycheckins: Array<newbooking> = new Array<newbooking>();
-  Occupancycheckinlist: Array<newbooking> = new Array<newbooking>();
   TodaycheckOuts: Array<newbooking> = new Array<newbooking>();
   updatebooking = new Booking();
   amenitybooking = new Booking();
@@ -69,7 +68,7 @@ export class DashboardComponent implements OnInit {
   dropdownval;
   isuser:boolean=false;
 
-  show:boolean = false;
+  showaddamenity:boolean = false;
   showbutton:boolean = false;
   showname=false;
   room = new Room();
@@ -78,8 +77,8 @@ export class DashboardComponent implements OnInit {
   { }
 
   ngOnInit(): void {
-    this.getoccupancyfromapi()
-    this.amenityroom.roomNumber
+    this.getoccupancyrate()
+   //getting username and password stored in cookies and checking of the user is a valid user or not    
     this.username = this.cookieService.get('username');
     this.password =this.cookieService.get('password'); 
     this.isuser = this.userservice.isUser(this.username,this.password);
@@ -87,25 +86,9 @@ export class DashboardComponent implements OnInit {
     {
       this.router.navigateByUrl('/');
     }
-    let t = formatDate(new Date(), 'yyyy-MM-ddT00:00:00', 'en');
-    
-    this.service.GetBookingbyRoomnumber(340)
-    .subscribe(
-      (response) => {                           //next() callback
-        console.log('amenity  received');
-        console.log(response)
-      // this.amenitybooking = response;
-        console.log(  this.amenitybooking)
-      },
-      (error) => {                              //error() callback
-        console.error('Request failed with amenity error')
-        console.log(error)
-      },
-      () => {                                   //complete() callback
-        console.error('Request completed')      //This is actually not needed 
-      })
-
-    console.log(t)
+    let t = formatDate(new Date(), 'yyyy-MM-ddT00:00:00', 'en');    
+    //subscribing to get observable data 
+    //subscribed to get the amenities available
     this.amenityservice.getAmenities()
     .subscribe(
       (response) => {                           //next() callback
@@ -122,6 +105,7 @@ export class DashboardComponent implements OnInit {
         console.error('Request completed')      //This is actually not needed 
       })  
 
+    //subscribed to get the bookings whose checkin date is current date
     this.service.getBookingbycheckindate(t)
     .subscribe(
       (response) => {                           //next() callback
@@ -152,6 +136,9 @@ export class DashboardComponent implements OnInit {
         console.error('Request completed')      //This is actually not needed 
       })
 
+    
+
+    //subscribed to get the bookings whose chekout date is current date
     this.service.getBookingbycheckoutdate(t)
     .subscribe(
         (response) => {                           //next() callback
@@ -184,6 +171,7 @@ export class DashboardComponent implements OnInit {
     }
 
 
+    //called when manager / clerk clicks on checkin button and id of current booking is passed and status is changed to checkin
 
     Checkin(id:number)
     {
@@ -209,11 +197,12 @@ export class DashboardComponent implements OnInit {
         })
     }
 
-
-    changeValue() {
-      this.show=false;
+//called when amenity is changed from the dropdown
+    amenityChange() {
+      this.showaddamenity=false;
       this.showname= false;
       console.log('dropdown value ::' + this.dropdownval)
+      // used to get boooking based on roomnumber inorder to display name of the checked in guest  
       this.roomservice.GetRoombyroomnumber(this.amenityroom.roomNumber)
       .subscribe(
         (response) => {                           //next() callback
@@ -222,14 +211,14 @@ export class DashboardComponent implements OnInit {
          console.log(this.room)
           this.service.GetBookingbyRoomnumber(this.room.id)
           .subscribe(data => {
-            this.show=true;
+            this.showaddamenity=true;
             this.showbutton=true;
             this.showname= true;
             this.amenitybooking = data;
                 }) ;
         },
         (error) => { 
-          this.show=true;    
+          this.showaddamenity=true;    
           this.showbutton=false;
           this.showname= false;
           //error() callback
@@ -237,7 +226,7 @@ export class DashboardComponent implements OnInit {
         
         },
         () => { 
-          this.show=true;    
+          this.showaddamenity=true;    
           //complete() callback
           console.error('Request completed')      //This is actually not needed 
      
@@ -245,10 +234,11 @@ export class DashboardComponent implements OnInit {
 
     }
 
-
-
+  
+   // called to assign amenities to the room
     AssignAmenity()
     {
+      //used to get the seected amenity
       this.roomamenity.amenityId = this.dropdownval;
       this.roomAminityService.addRoomAmenities(this.roomamenity)
       .subscribe(data => {
@@ -266,8 +256,8 @@ export class DashboardComponent implements OnInit {
       
     }
 
-
-    getoccupancyfromapi()
+ // used to get occupancy rate of nect 7 days
+    getoccupancyrate()
     {
 
       let t = new Date() ;
@@ -302,7 +292,7 @@ export class DashboardComponent implements OnInit {
         }) 
     }
     
-
+    //called when manager / clerk clicks on checkout button and id of current booking is passed and status is changed to checkout
     Checkout(id:number)
     {
       this.service.getBookingbyId(id)

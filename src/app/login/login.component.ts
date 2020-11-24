@@ -22,6 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(public service: UserService , private cookieService: CookieService ,private route: ActivatedRoute,private router: Router) {
     this.userService=new UserService();
    }
+
+   //check if user is valid user and if  true then store username and passwod in cookies
   public checkuser()
   {
     this.notvalid = false;

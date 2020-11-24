@@ -37,13 +37,13 @@
  
   <div class="form-group" style="margin-bottom:30px;" >
     <label for="roomNumber" style="font-weight: bold;">Room Number</label>
-    <div *ngIf="editroom; then thenBlock6 else elseBlock6"></div>
-    <ng-template #thenBlock6>      <input  type="number" min="4" step="1" name="roomNumber"  #roomNumber="ngModel"  id="roomNumber" style="width:300px;position: relative;" [ngClass]="{'red-border-class': roomNumber.errors}" required   class="form-control " [(ngModel)]="room.roomNumber" readonly >
+    <div *ngIf="editroom; then theneditroomno else elseaddroomno"></div>
+    <ng-template #theneditroomno>      <input  type="number" min="4" step="1" name="roomNumber"  #roomNumber="ngModel"  id="roomNumber" style="width:300px;position: relative;" [ngClass]="{'red-border-class': roomNumber.errors}" required   class="form-control " [(ngModel)]="room.roomNumber" readonly >
       <span style= " position: absolute;color:red;" *ngIf="!roomNumber?.valid  && (roomNumber?.dirty || roomNumber?.touched)">
         *enter room number
       </span>
     </ng-template>
-    <ng-template #elseBlock6>       <input  type="number" min="4" step="1" name="roomNumber"  #roomNumber="ngModel"  id="roomNumber" style="width:300px;position: relative;" [ngClass]="{'red-border-class': roomNumber.errors}" required   class="form-control " [(ngModel)]="room.roomNumber" >
+    <ng-template #elseaddroomno>       <input  type="number" min="4" step="1" name="roomNumber"  #roomNumber="ngModel"  id="roomNumber" style="width:300px;position: relative;" [ngClass]="{'red-border-class': roomNumber.errors}" required   class="form-control " [(ngModel)]="room.roomNumber" >
     
       <span style= " position: absolute;color:red;" *ngIf="!roomNumber?.valid  && (roomNumber?.dirty || roomNumber?.touched)">
         *enter room number
@@ -54,9 +54,9 @@
  
   <div class="form-group" style="margin-bottom:30px;" >
     <label for="adultsCapacity" style="font-weight: bold;">Adult Capacity</label>
-    <input type="number"  name="adultsCapacity" (ngModelChange)="validateWhite($event)" #adultsCapacity="ngModel" id="adultsCapacity" style="width:300px;position: relative;" [ngClass]="{'red-border-class': adultsCapacity.errors || wrong }" required  class="form-control text-line "  [(ngModel)]="room.adultsCapacity" >
+    <input type="number"  name="adultsCapacity" (ngModelChange)="validateadultcapacity($event)" #adultsCapacity="ngModel" id="adultsCapacity" style="width:300px;position: relative;" [ngClass]="{'red-border-class': adultsCapacity.errors || invalidAdultcapacity }" required  class="form-control text-line "  [(ngModel)]="room.adultsCapacity" >
   
-  <div *ngIf="wrong; then thenBlock8 else elseBlock8"></div>
+  <div *ngIf="invalidAdultcapacity; then thenBlock8 else elseBlock8"></div>
   <ng-template #thenBlock8>  
     <span style= " position: absolute;color:red;">
      * Adult capacity cannot be less than 1 
@@ -83,10 +83,10 @@
  
  
   
-  <div *ngIf="editroom; then thenBlock else elseBlock"></div>
-      <ng-template #thenBlock>    <button type="submit" [disabled]="!contactForm.valid"    class="btn btn-primary" style="margin-top:20px;">Save</button>
+  <div *ngIf="editroom; then thensave else elseadd"></div>
+      <ng-template #thensave>    <button type="submit" [disabled]="!contactForm.valid"    class="btn btn-primary" style="margin-top:20px;">Save</button>
       </ng-template>
-      <ng-template #elseBlock>   <button type="submit" [disabled]="!contactForm.valid"   class="btn btn-primary" style="margin-top:20px;margin-left:10px;">Add</button>
+      <ng-template #elseadd>   <button type="submit" [disabled]="!contactForm.valid"   class="btn btn-primary" style="margin-top:20px;margin-left:10px;">Add</button>
       </ng-template>
       <button  routerLink="/Room" class="btn btn-primary" style="margin-left:50px;margin-top:20px;">Back</button>
   
@@ -100,22 +100,22 @@
   <div class="modal-header" style="background-color: skyblue;">
 <h4 class="modal-title" id="modal-basic-title">Alert !!</h4>
 <div>
-    <div *ngIf="roomadded; then thenBlock2 else elseBlock2"></div>
-    <ng-template #thenBlock2>   
+    <div *ngIf="roomadded; then thenroomadd1 else elseroomadd1"></div>
+    <ng-template #thenroomadd1>   
          <button type="button"  routerLink="/Room" style="margin-right:0px;" class="" aria-label="Close" (click)="modal.dismiss('Cross click')">
 
       <span >×</span>
     </button>
     </ng-template>
-    <ng-template #elseBlock2>     
-      <div *ngIf="updatedsucc; then thenBlock5 else elseBlock5"></div>
-      <ng-template #thenBlock5>   
+    <ng-template #elseroomadd1>     
+      <div *ngIf="updatedsucc; then thenupdate1 else elseupdate1"></div>
+      <ng-template #thenupdate1>   
            <button type="button"  routerLink="/Room" style="margin-right:0px;" class="" aria-label="Close" (click)="modal.dismiss('Cross click')">
   
         <span >×</span>
       </button>
       </ng-template>
-      <ng-template #elseBlock5>     
+      <ng-template #elseupdate1>     
          <button type="button" style="margin-right:0px;"  class="" aria-label="Close" (click)="modal.dismiss('Cross click')">
   
         <span >×</span>
@@ -129,16 +129,16 @@
   </div>
   <div class="modal-footer">
     
-    <div *ngIf="roomadded; then thenBlock3 else elseBlock3"></div>
-    <ng-template #thenBlock3>   
+    <div *ngIf="roomadded; then thenroomadded2 else elseroomadded2"></div>
+    <ng-template #thenroomadded2>   
       <button type="button"  routerLink="/Room" class="btn " (click)="modal.close('Save click')">Ok</button>
     </ng-template>
-    <ng-template #elseBlock3>     
-      <div *ngIf="updatedsucc; then thenBlock4 else elseBlock4"></div>
-      <ng-template #thenBlock4>   
+    <ng-template #elseroomadded2>     
+      <div *ngIf="updatedsucc; then thenupdate2 else elseupdate2"></div>
+      <ng-template #thenupdate2>   
         <button type="button"  routerLink="/Room" class="btn " (click)="modal.close('Save click')">Ok</button>
       </ng-template>
-      <ng-template #elseBlock4>     
+      <ng-template #elseupdate2>     
         <button type="button" class="" (click)="modal.close('Save click')">Ok</button>
       </ng-template>
     </ng-template>

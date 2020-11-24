@@ -54,14 +54,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let roomcurrent of Bookings | paginate: { itemsPerPage: 5, currentPage: p } ; let i = index">
+            <tr *ngFor="let currentbooking of Bookings | paginate: { itemsPerPage: 5, currentPage: p } ; let i = index">
           
-                <td >  <a  (click)="Editroom(roomcurrent.id)"  routerLink="/Booking" >{{roomcurrent.guestLastName}}</a></td>
-                <td  >{{roomcurrent.guestFirstName}}</td>
-                <td   > {{roomcurrent.checkInDate | date:'dd/MM/yyyy'}}</td>
-                <td >{{roomcurrent.checkOutDate | date:'dd/MM/yyyy'}}</td>
-                <td >{{ roomcurrent.room.roomNumber}}</td>
-                <td >{{ roomcurrent.status.label}}</td>
+                <td >  <a  (click)="EditBooking(currentbooking.id)"  routerLink="/Booking" >{{currentbooking.guestLastName}}</a></td>
+                <td  >{{currentbooking.guestFirstName}}</td>
+                <td   > {{currentbooking.checkInDate | date:'dd/MM/yyyy'}}</td>
+                <td >{{currentbooking.checkOutDate | date:'dd/MM/yyyy'}}</td>
+                <td >{{ currentbooking.room.roomNumber}}</td>
+                <td >{{ currentbooking.status.label}}</td>
 
               </tr>
         </tbody>

@@ -57,26 +57,26 @@
         <table  class='table table-row'>
            
             <tbody>
-                <tr *ngFor="let roomcurrent of Todaycheckins; let i = index">
+                <tr *ngFor="let currentcheckin of Todaycheckins; let i = index">
                   <td>
                     <div data-container="">
                       <div data-block="MainFlow.GuestName" class="OSBlockWidget" id="l1_0-13_0-$b4">
                         <span data-expression="" style="margin-left: 0px; color: rgb(228, 192, 139); font-weight: bold;">
-                          {{roomcurrent.guestFirstName}}
+                          {{currentcheckin.guestFirstName}}
                         </span>
                         <span data-expression="" style="margin-left: 0px; color: rgb(228, 192, 139);">
-                          , {{roomcurrent.guestLastName}}
+                          , {{currentcheckin.guestLastName}}
                         </span>
                       </div>
                     </div>
                     <div data-container="" class="ThemeGrid_Width8">
-                      <span data-expression="">{{roomcurrent.checkOutDate | date:'dd/MM/yyyy'}}
+                      <span data-expression="">{{currentcheckin.checkOutDate | date:'dd/MM/yyyy'}}
   
                       </span>
                     </div>
                   </td>
-                  <td><span data-expression="">{{roomcurrent.room.roomNumber}}</span></td>
-                  <td style="padding-left:80px;"><button data-button="" (click)="Checkin(roomcurrent.id)"  style="background-color:#e4c18b;" class="btn btn-primary" type="button">Check in</button>
+                  <td><span data-expression="">{{currentcheckin.room.roomNumber}}</span></td>
+                  <td style="padding-left:80px;"><button data-button="" (click)="Checkin(currentcheckin.id)"  style="background-color:#e4c18b;" class="btn btn-primary" type="button">Check in</button>
                   </td>
                   </tr>
             </tbody>
@@ -111,26 +111,26 @@
         <table  class='table table-row'>
            
             <tbody>
-                <tr *ngFor="let roomcurrent2 of TodaycheckOuts; let i = index">
+                <tr *ngFor="let currentcheckout of TodaycheckOuts; let i = index">
                   <td>
                     <div data-container="">
                       <div data-block="MainFlow.GuestName" class="OSBlockWidget" id="l1_0-13_0-$b4">
                         <span data-expression="" style="margin-left: 0px; color: rgb(228, 192, 139); font-weight: bold;">
-                          {{roomcurrent2.guestFirstName}}
+                          {{currentcheckout.guestFirstName}}
                         </span>
                         <span data-expression="" style="margin-left: 0px; color: rgb(228, 192, 139);">
-                          , {{roomcurrent2.guestLastName}}
+                          , {{currentcheckout.guestLastName}}
                         </span>
                       </div>
                     </div>
                     <div data-container="" class="ThemeGrid_Width8">
-                      <span data-expression="">{{roomcurrent2.checkOutDate | date:'dd/MM/yyyy'}}
+                      <span data-expression="">{{currentcheckout.checkOutDate | date:'dd/MM/yyyy'}}
   
                       </span>
                     </div>
                   </td>
-                  <td><span data-expression="">{{roomcurrent2.room.roomNumber}}</span></td>
-                  <td style="padding-left:80px;"><button data-button="" (click)="Checkout(roomcurrent2.id)"  style="background-color:#e4c18b;" class="btn btn-primary" type="button">Check out</button>
+                  <td><span data-expression="">{{currentcheckout.room.roomNumber}}</span></td>
+                  <td style="padding-left:80px;"><button data-button="" (click)="Checkout(currentcheckout.id)"  style="background-color:#e4c18b;" class="btn btn-primary" type="button">Check out</button>
                   </td>
                   </tr>
             </tbody>
@@ -193,7 +193,7 @@
  
 
          <div style="display: flex;">
-                    <input  type="text"  name="firstname"  #firstname="ngModel"  id="firstname" style="width:200px;position: relative;margin-top:20px;" (keyup)="changeValue()"   class="form-control " [(ngModel)]="amenityroom.roomNumber"  >
+                    <input  type="text"  name="firstname"  #firstname="ngModel"  id="firstname" style="width:200px;position: relative;margin-top:20px;" (keyup)="amenityChange()"   class="form-control " [(ngModel)]="amenityroom.roomNumber"  >
 <span  *ngIf="showname"  style="margin-top:30px;margin-left:20px;">
   {{amenitybooking.guestFirstName}}   {{amenitybooking.guestLastName}} 
 
@@ -215,11 +215,11 @@
 
         <div *ngIf="showbutton; then thenreadchiid else elsereadchiid"></div>
         <ng-template #thenreadchiid>  
-          <button  *ngIf="show" data-button="" (click)="AssignAmenity()" style="background-color:#e4c18b;margin-top:20px;" class="btn btn-primary" type="button">Add Amenity</button>
+          <button  *ngIf="showaddamenity" data-button="" (click)="AssignAmenity()" style="background-color:#e4c18b;margin-top:20px;" class="btn btn-primary" type="button">Add Amenity</button>
 
         </ng-template>
         <ng-template #elsereadchiid>          
-          <span *ngIf="show"> Enter checked-in Room</span>
+          <span *ngIf="showaddamenity"> Enter checked-in Room</span>
         
         </ng-template>
 

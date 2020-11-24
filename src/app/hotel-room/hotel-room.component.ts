@@ -38,50 +38,9 @@ export class HotelRoomComponent implements OnInit {
   constructor( public statusservice :StatusService,public service: RoomService ,private route: ActivatedRoute,public userservice: UserService ,private router: Router,private cookieService: CookieService ,private modalService: NgbModal) {
 
    }
-
-   UpdateRoom()
-   {
-     
-       if(this.room.childrenCapacity==null){
-         this.room.childrenCapacity=0;
-       }
-     this.service.updateRoom(this.room)
-     .subscribe(data => {
-       console.log('updated data');
-       console.log(this.room);
-     
-       // this.router.navigateByUrl('/Room');
-     }) ;
-    // this.router.navigateByUrl('/Room');
-   }
-
-   getRoombyId(id : number)
-   {
-     this.loading = true;
-     this.errorMessage = "";
-     this.service.getRoombyId(id)
-       .subscribe(
-         (response) => {                           //next() callback
-           console.log('response received');
-          
-           this.room = response; 
-           console.log('value received');
-           console.log(response);
-           
-         },
-         (error) => {                              //error() callback
-           console.error('Request failed with error')
-           this.errorMessage = error;
-           this.loading = false;
  
-         },
-         () => {                                   //complete() callback
-           console.error('Request completed')      //This is actually not needed 
-           this.loading = false; 
-         })
-   }
-
-
+ 
+ // called at  time of inline editting along with the id event and property name 
    changeValue(id: number,  property: string ,event: any) {
      //this.room.adultsCapacity = event.target.textContent;
     this.editField = event.target.textContent;
@@ -97,6 +56,7 @@ export class HotelRoomComponent implements OnInit {
            this.room = response; 
            console.log('value received');
            console.log(this.room);
+           //if property in adultcapacity then  update the adultcapacity value 
            if(property == 'adultsCapacity')
            {
              console.log('hello adult');
@@ -131,6 +91,7 @@ export class HotelRoomComponent implements OnInit {
          });
  
   }
+  
 
   getstatus()
   {
@@ -157,7 +118,7 @@ export class HotelRoomComponent implements OnInit {
 
   }
 
- 
+ //called to get the available rooms
    getRooms() {
     this.loading = true;
     this.errorMessage = "";
@@ -180,7 +141,8 @@ export class HotelRoomComponent implements OnInit {
         })
 
   }
-
+ // called when roomnumberlink is clicked inorder to  redirect to
+ // editscreen if manager is loggedin otherwise display  message because clerk cabbit edit 
   Editroom(content ,id:number)
   {
     this.ismanager=this.userservice.isManager(this.username,this.password);
@@ -199,16 +161,18 @@ export class HotelRoomComponent implements OnInit {
     }
 
   }
-
+ //called when clicked on Addroom button
   AddRoom(content)
   {
     this.ismanager=this.userservice.isManager(this.username,this.password);
     if(this.ismanager)
     {
+      // if manager then redirected to add screen
       this.router.navigateByUrl('/Room/edit/0');
     }
     else
     {
+      // clerk cannot add room so message displayed
       this.message ="Sorry!! you can't Add Room";
       this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
         this.closeResult = `Closed with: ${result}`;
