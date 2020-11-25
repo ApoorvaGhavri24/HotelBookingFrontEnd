@@ -27,21 +27,17 @@ import {
 export class NewBookingComponent implements OnInit {
   @ViewChild('contactForm', {static: false}) contactForm: NgForm;
   model;
-  current: {
-    "year": 2020,
-    "month": 11,
-    "day": 3
-  }
-  m;
-  d;
-  y;
-  tm;
-  td;
-  ty;
+  checkInmonth;
+  checkInDay;
+  checkInyear;
 
-  cm;
-  cd;
-  cy;
+  todayMonth;
+  todayDate;
+  todayYear;
+
+  checkoutMonth;
+  checkoutDay;
+  checkoutYear;
 minDate = { year: 2020, month: 11, day: 6 };
 checkindate ={ year: 2020, month: 11, day: 6 };
 chckoutdate  ={ year: 2020, month: 11, day: 6 };
@@ -57,12 +53,12 @@ Bookings :Booking[];
 curBooking =new Booking();
 curBookingcomp =new Booking();
 //status = new Status();
-wrong:boolean = false;
+invalidadultcount:boolean = false;
 bookingdone:boolean=false;
 roomfound:boolean = false;
-changecheckout:boolean = false;
+invalidcheckout:boolean = false;
 message;
-editroom;
+editBooking;
 public idnew;
 bookroom= new Room();
 ismanager : boolean = false;
@@ -82,44 +78,39 @@ isuser:boolean=false;
     {
       this.router.navigateByUrl('/');
     }
-
-    var cdate = (formatDate(new Date(), 'yyyy-MM-dd', 'en'));
-    this.ty =(cdate).toString().substring(4, 0) ;
-    this.tm =(cdate).toString().substring(7, 5) ;
-    this.td =(cdate).toString().substring(10, 8) ;
-    this.minDate.year = Number(this.ty);
-    console.log('year::'+this.ty);
-    this.minDate.month = Number(this.tm);
-    console.log('year::'+this.tm);
-    this.minDate.day = Number(this.td);
-    console.log('year::'+this.td);
-    console.log('today date after change: '+cdate);
+//setting mindate as current date for checkin and ckeckout in calendar
+    var currentdate = (formatDate(new Date(), 'yyyy-MM-dd', 'en'));
+    this.todayYear =(currentdate).toString().substring(4, 0) ;
+    this.todayMonth =(currentdate).toString().substring(7, 5) ;
+    this.todayDate =(currentdate).toString().substring(10, 8) ;
+    this.minDate.year = Number(this.todayYear);
+    console.log('year::'+this.todayYear);
+    this.minDate.month = Number(this.todayMonth);
+    console.log('year::'+this.todayMonth);
+    this.minDate.day = Number(this.todayDate);
+    console.log('year::'+this.todayDate);
+    console.log('today date after change: '+currentdate);
 
     console.log('min date after change: '+this.minDate);
-    /*var t;
-    var date = new Date();
-   
-    t = this.datePipe.transform(date,"yyyy-MM-dd")
-    console.log(t);*/
+  
     let id = this.route.snapshot.params.id;
     this.idnew = id;
     if(id==0)
     {
-      this.editroom = false;
+      this.editBooking = false;
       console.log('hello id=0');
       this.curBooking= new Booking();
     }
     else
     {
-      this.editroom = true;
+      //get booking based on id to be editted
+      this.editBooking = true;
       this.service.getBookingbyId(this.idnew)
       .subscribe(
       (response) => {                           //next() callback
        console.log('response received');
        this.curBookingcomp = response; 
 
-       var str = "Hello world!";
-       var res = str.substring(1, 4);
        let  curdate = (formatDate(new Date(), 'yyyy-MM-dd', 'en'));
        let editcheckindate = formatDate(this.curBookingcomp.checkInDate, 'yyyy-MM-dd', 'en');
        let editcheckoutdate = formatDate(this.curBookingcomp.checkOutDate, 'yyyy-MM-dd', 'en');
@@ -142,29 +133,22 @@ isuser:boolean=false;
           this.showCancel = true;
         }
         this.curBooking = Object.assign<{},Booking>({}, this.curBookingcomp)
+        //setting datepicker value to the  checkin date
         let t1 = (formatDate(this.curBooking.checkInDate, 'yyyy-MM-dd', 'en'));
         this.contactForm.controls["dp"].setValue(t1)  
+           //setting datepicker value to the  checkout date
         let t2 = (formatDate(this.curBooking.checkOutDate, 'yyyy-MM-dd', 'en'));
         this.contactForm.controls["dp2"].setValue(t2)  
-        //console.log(this.room);
-       /* var t =(this.curBooking.checkInDate);
-        this.y =(this.curBooking.checkInDate).toString().substring(4, 0) ;
-        this.m =(this.curBooking.checkInDate).toString().substring(7, 5) ;
-        this.d =(this.curBooking.checkInDate).toString().substring(10, 8) ;
-        console.log('month:');
-        console.log(this.m);*/
-       // this.d =(this.curBooking.checkInDate.getDate);
-        this.checkindate.year = this.y;
-        this.checkindate.month = this.m;
-        this.checkindate.day = this.d;
+      
+        this.checkindate.year = this.checkInyear;
+        this.checkindate.month = this.checkInmonth;
+        this.checkindate.day = this.checkInDay;
         console.log('oroginal checkin');
         console.log(this.curBooking.checkInDate)
         console.log('checkin date ::::');
         //this.curBooking.checkInDate.setDate = this.checkindate
         console.log(this.checkindate)
-       // let val = formatDate(this.curBooking.checkInDate,'yyyy/MM/dd','en');
-
-      //  this.contactForm.controls["dp"].setValue(this.checkindate)   
+    
          },
       (error) => {                              //error() callback
         console.error('Request failed with error')
@@ -237,12 +221,12 @@ isuser:boolean=false;
   }
 
 
-  validateWhite(event: number) {
-    this.wrong = false;
+  validateadultcount(event: number) {
+    this.invalidadultcount = false;
         if (event <1 &&  event!=null) {
-        this.wrong = true;
+        this.invalidadultcount = true;
         } else {
-          this.wrong = false;
+          this.invalidadultcount = false;
     
         }
   }
@@ -254,7 +238,7 @@ isuser:boolean=false;
  
     console.log('inside assignbooking');
     console.log(this.Bookings);
-    this.displayall(this.availrooms, this.Bookings);
+    this.getcheapestroom(this.availrooms, this.Bookings);
 
   }
 
@@ -277,15 +261,16 @@ isuser:boolean=false;
         });
   }
 
-
-  displayall(ar: Room[], bk: Booking[] )
+/*called to get the cheapest available room based on checkin and checkout date
+ and display appropriate message if room not avaiable*/
+  getcheapestroom(availrooms: Room[], bookings: Booking[] )
   {
     this.roomfound = false;
     var roomnotavail=false;
     
     console.log('inside bookings');
-    console.log(ar);
-    console.log(bk);
+    console.log(availrooms);
+    console.log(bookings);
     for (let i = 0; i < this.availrooms.length; i++) {
       roomnotavail=false;
       for (let j = 0; j < this.Bookings.length; j++)
@@ -371,7 +356,7 @@ isuser:boolean=false;
         })
 
   }
-
+ //method to get available rooms from api based on adult and child capacity
   getavailableRooms ()
   {
     var roomtemp =[new Room()];
@@ -385,7 +370,7 @@ isuser:boolean=false;
     }) ;
      
   }
-
+//
   BookNewRoom(content)
   {
     
@@ -420,8 +405,12 @@ isuser:boolean=false;
   }
 
 
-
-  submitdata()
+ //called when  getavailablerooms button is clicked
+ /*checkout  date is compared with checkin date and if checkout date is less
+ than checkin date mesaage is displayed otherwise method to get available rooms is called
+ */
+ 
+  onclickgetrooms()
   {
     var cbci =this.curBooking.checkInDate
     var cbco =this.curBooking.checkOutDate
@@ -434,25 +423,25 @@ isuser:boolean=false;
    
     console.log('curbooking component :')
     console.log(this.curBookingcomp)
-    this.y =(this.curBookingcomp.checkInDate['year']);
-    this.m =(this.curBookingcomp.checkInDate['month']) -1;
-    console.log(this.m);
-    this.d =(this.curBookingcomp.checkInDate['day']);
+    this.checkInyear =(this.curBookingcomp.checkInDate['year']);
+    this.checkInmonth =(this.curBookingcomp.checkInDate['month']) -1;
+    console.log(this.checkInmonth);
+    this.checkInDay =(this.curBookingcomp.checkInDate['day']);
     var t ;
-     var t2;
+     var t2; 
   
-    this.curBookingcomp.checkInDate =new Date(this.y, this.m,this.d);
+    this.curBookingcomp.checkInDate =new Date(this.checkInyear, this.checkInmonth,this.checkInDay);
     console.log(this.curBookingcomp.checkInDate);
     t = (formatDate(this.curBookingcomp.checkInDate, 'yyyy-MM-dd', 'en'));
     this.curBookingcomp.checkInDate = t;
    //this.contactForm.controls["dp"].setValue(cbci);
    //this.contactForm.controls["dp2"].setValue(cbco);
     //console.log(this.datePipe.transform(this.curBooking.checkInDate,"yyyy-MM-dd"));
-    this.cy =(this.curBookingcomp.checkOutDate['year']);
-    this.cm =(this.curBookingcomp.checkOutDate['month']) -1;
-    console.log(this.m);
-    this.cd =(this.curBookingcomp.checkOutDate['day']);
-    this.curBookingcomp.checkOutDate =new Date(this.cy, this.cm,this.cd);
+    this.checkoutYear =(this.curBookingcomp.checkOutDate['year']);
+    this.checkoutMonth =(this.curBookingcomp.checkOutDate['month']) -1;
+    console.log(this.checkInmonth);
+    this.checkoutDay =(this.curBookingcomp.checkOutDate['day']);
+    this.curBookingcomp.checkOutDate =new Date(this.checkoutYear, this.checkoutMonth,this.checkoutDay);
     console.log(this.curBookingcomp.checkOutDate);
     t2 = (formatDate(this.curBookingcomp.checkOutDate, 'yyyy-MM-dd', 'en'));
     this.curBookingcomp.checkOutDate = t2;
@@ -460,38 +449,21 @@ isuser:boolean=false;
     console.log(this.curBookingcomp);
     if(this.curBookingcomp.checkInDate>this.curBookingcomp.checkOutDate)
    {
-     this.changecheckout = true;
-     this.message = 'checkout date cannot be greater thatn checkin date';
+     this.invalidcheckout = true;
+     this.message = 'checkout date cannot be greater than checkin date';
    }
    else
    {
-    this.changecheckout = false;
+    this.invalidcheckout = false;
     this.getavailableRooms(); 
    }
 
-    
-        // this.displayall();
+
   }
  
 
 
-  open(content) {
-    if(this.editroom)
-    {
-     // this.UpdateRoom();
-    }
-    else
-    {
-     // this.addRoom();
-    }
-    
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-  
+
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

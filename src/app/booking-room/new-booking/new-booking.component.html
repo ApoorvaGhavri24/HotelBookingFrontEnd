@@ -42,7 +42,7 @@
  
     <div class="form-group" style="margin-bottom:30px;" >
       <label for="lastname" style="font-weight: bold;">Last Name</label>
-      <div *ngIf="editroom; then thenreadln else elsereadln"></div>
+      <div *ngIf="editBooking; then thenreadln else elsereadln"></div>
       <ng-template #thenreadln>      <input  type="text"  name="lastname"  #lastname="ngModel"  id="lastname" style="width:300px;position: relative;" [ngClass]="{'red-border-class': lastname.errors}" required   class="form-control " [(ngModel)]="curBooking.guestLastName" readonly >
         <span style= " position: absolute;color:red;" *ngIf="!lastname?.valid  && (roomNumber?.dirty || roomNumber?.touched)">
           *enter guest last name
@@ -58,7 +58,7 @@
     </div>
     <div class="form-group " style="margin-bottom:30px;" >
         <label for="firstname" style="font-weight: bold;">First Name</label>
-        <div *ngIf="editroom; then thenreadfn else elsereadfn"></div>
+        <div *ngIf="editBooking; then thenreadfn else elsereadfn"></div>
         <ng-template #thenreadfn>  
              <input  type="text"  name="firstname"  #firstname="ngModel"  id="firstname" style="width:300px;position: relative;" [ngClass]="{'red-border-class': firstname.errors}" required   class="form-control " [(ngModel)]="curBooking.guestFirstName" readonly >
            
@@ -89,7 +89,7 @@
        
         <div class="input-group">
 
-          <div *ngIf="editroom; then thenreadci else elsereadci"></div>
+          <div *ngIf="editBooking; then thenreadci else elsereadci"></div>
           <ng-template #thenreadci>    <input  type="text"  name="dp"  #dp="ngModel"  id="dp" style="width:300px;position: relative;"  [ngClass]="{'red-border-class': dp.errors}" required    class="form-control " [(ngModel)]="curBooking.checkInDate" readonly>
         
           </ng-template>
@@ -118,7 +118,7 @@
       
         <div class="input-group">
 
-          <div *ngIf="editroom; then thenreadco else elsereadco"></div>
+          <div *ngIf="editBooking; then thenreadco else elsereadco"></div>
           <ng-template #thenreadco>    <input  type="text"  name="dp2"  #dp2="ngModel"  id="dp2" style="width:300px;position: relative;"  required   class="form-control " [(ngModel)]="curBooking.checkOutDate" readonly >
         
           </ng-template>
@@ -142,20 +142,20 @@
           
          
         </div>
-        <div *ngIf="changecheckout">  {{message}} </div>
+        <div *ngIf="invalidcheckout">  {{message}} </div>
       </div>
       <div class="form-group" style="margin-bottom:30px;" >
         <label for="adultsCapacity" style="font-weight: bold;">Adult Capacity</label>
 
-        <div *ngIf="editroom; then thenreadadult else elsereadadult"></div>
+        <div *ngIf="editBooking; then thenreadadult else elsereadadult"></div>
         <ng-template #thenreadadult>  
           <input type="number"  name="adultsCapacity"  #adultsCapacity="ngModel" id="adultsCapacity" style="width:300px;position: relative;" [ngClass]="{'red-border-class': adultsCapacity.errors }" required  class="form-control text-line "  [(ngModel)]="curBooking.numberOfAdults" readonly>
 
         </ng-template>
         <ng-template #elsereadadult> 
-          <input type="number"  name="adultsCapacity" (ngModelChange)="validateWhite($event)" #adultsCapacity="ngModel" id="adultsCapacity" style="width:300px;position: relative;" [ngClass]="{'red-border-class': adultsCapacity.errors || wrong }" required  class="form-control text-line "  [(ngModel)]="curBooking.numberOfAdults" >
+          <input type="number"  name="adultsCapacity" (ngModelChange)="validateadultcount($event)" #adultsCapacity="ngModel" id="adultsCapacity" style="width:300px;position: relative;" [ngClass]="{'red-border-class': adultsCapacity.errors || invalidadultcount }" required  class="form-control text-line "  [(ngModel)]="curBooking.numberOfAdults" >
 
-          <div *ngIf="wrong; then thenBlock8 else elseBlock8"></div>
+          <div *ngIf="invalidadultcount; then thenBlock8 else elseBlock8"></div>
           <ng-template #thenBlock8>  
             <span style= " position: absolute;color:red;">
              * Adult capacity cannot be less than 1 
@@ -173,7 +173,7 @@
      
       <div class="form-group" >
         <label for="childrenCapacity" style="font-weight: bold;">Child Capacity </label>
-        <div *ngIf="editroom; then thenreadchiid else elsereadchiid"></div>
+        <div *ngIf="editBooking; then thenreadchiid else elsereadchiid"></div>
         <ng-template #thenreadchiid>  
           <input type="number"  name="childrenCapacity"  id="childrenCapacity" style="width:300px;position: relative;"   class="form-control"  [(ngModel)]="curBooking.numberOfChildren" readonly>
 
@@ -184,7 +184,7 @@
       </div>
    
    <div *ngIf="roomfound"> Room {{bookroom.roomNumber}} at ${{bookroom.price}} per night</div>
-   <div *ngIf="editroom; then thenshowavail else elseshowavail"></div>
+   <div *ngIf="editBooking; then thenshowavail else elseshowavail"></div>
    <ng-template #thenshowavail>  
     <button type="submit" *ngIf="showCheckin"   (click)= "Checkin(mymodal)" class="btn btn-primary" style="margin-top:20px;margin-right:20px;">Check-In</button>
     <button type="submit"  *ngIf="showCheckOut" (click)= "Checkout(mymodal)" class="btn btn-primary" style="margin-top:20px;margin-right:20px;">Check-Out</button>
@@ -193,7 +193,7 @@
 
    </ng-template>
    <ng-template #elseshowavail>   
-    <button type="submit"    (click)="submitdata()" class="btn btn-primary" style="margin-top:20px;">get available room</button>
+    <button type="submit"    (click)="onclickgetrooms()" class="btn btn-primary" style="margin-top:20px;">get available room</button>
     <button type="submit"  *ngIf="showBookroom"  (click)="BookNewRoom(mymodal)"  class="btn btn-primary" style="margin-top:20px;margin-left:20px">Book room</button>
     <button type="submit"   routerLink="/Booking"  class="btn btn-primary" style="margin-top:20px;margin-left:20px">Back</button>
 
