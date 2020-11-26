@@ -4,9 +4,9 @@ import {RoomService} from 'c:/Users/EI11763/RoomBooking/src/app/Room.service';
 import { ActivatedRoute ,Router} from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
-import {  
-  CookieService  
-} from 'ngx-cookie-service'; 
+import {
+  CookieService
+} from 'ngx-cookie-service';
 
 
 @Component({
@@ -16,28 +16,30 @@ import {
 })
 
 export class EditRoomComponent implements OnInit {
- 
 
-  loading: boolean = false;
-  roomadded:boolean= false;
-  updatedsucc:boolean = false;
+
+  loading = false;
+  roomadded = false;
+  updatedsucc = false;
   errorMessage;
   editroom;
   message;
   title = 'appSimpleRoute';
-  p: number = 1;
-  value: string = ""; 
+  p = 1;
+  value = '' ;
   closeResult: string;
-  invalidAdultcapacity:boolean =false;
-  //@ViewChild('contactForm',null) contactForm: NgForm;
-  room= new Room();
+  invalidAdultcapacity = false;
+  // @ViewChild('contactForm',null) contactForm: NgForm;
+  room = new Room();
   public idnew;
-  constructor( private cookieService: CookieService,public service: RoomService,private route: ActivatedRoute,private router: Router,private modalService: NgbModal) {
+  constructor( private cookieService: CookieService, public service: RoomService, private route: ActivatedRoute,
+               private router: Router, private modalService: NgbModal)
+  {
 
   }
-  validateadultcapacity(event: number) {
+  validateadultcapacity(event: number): void {
     this.invalidAdultcapacity = false;
-    if (event <1 &&  event!=null) {
+    if (event < 1 &&  event != null) {
     this.invalidAdultcapacity = true;
     } else {
       this.invalidAdultcapacity = false;
@@ -45,8 +47,8 @@ export class EditRoomComponent implements OnInit {
     }
   }
 
-  open(content) {
-    if(this.editroom)
+  open(content): void {
+    if (this.editroom)
     {
       this.UpdateRoom();
     }
@@ -54,14 +56,13 @@ export class EditRoomComponent implements OnInit {
     {
       this.addRoom();
     }
-    
+
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
-  
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -72,66 +73,63 @@ export class EditRoomComponent implements OnInit {
     }
   }
 
-  onSubmit(contactForm) {
+  onSubmit(contactForm): void {
     console.log(contactForm.value);
   }
- //called when id=0 and adding new room
-  addRoom() {
-    
-      if(this.room.childrenCapacity==null){
-        this.room.childrenCapacity=0;
+ // called when id=0 and adding new room
+  addRoom(): void {
+      if (this.room.childrenCapacity === null){
+        this.room.childrenCapacity = 0;
       }
       console.log(this.room);
       this.service.addRoom(this.room)
       .subscribe(data => {
         console.log(data);
-        if(data.id<=1)
+        if (data.id <= 1)
         {
-          this.message  ="Room not added!!";
-          console.log("not added");
+          this.message  = 'Room not added!!' ;
+          console.log('not added');
         }
         else
         {
-          this.message  =" Room added!!";
-          console.log("added");
+          this.message  = 'Room added!!' ;
+          console.log('added');
           this.roomadded = true;
         }
-        
-  
       })  ;
-      
+
   }
-// called when id != 0 and we are updating room 
-  UpdateRoom()
+// called when id != 0 and we are updating room
+  UpdateRoom(): void
   {
- 
-    if(this.room.childrenCapacity==null){
-      this.room.childrenCapacity=0;
+
+    if (this.room.childrenCapacity == null){
+      this.room.childrenCapacity = 0;
     }
     this.service.updateRoom(this.room)
     .subscribe(data => {
-      console.log(data)
-      this.message = "Room Updated !!";
+      console.log(data);
+      this.message = 'Room Updated !!';
       this.updatedsucc = true;
     }) ;
-  
+
   }
- 
- 
+
+
 
   ngOnInit(): void {
     console.log(this.cookieService.get('username'));
-    if(this.cookieService.get('username') !='apoorva')
+    if (this.cookieService.get('username') !== 'apoorva')
     {
       this.router.navigateByUrl('/');
     }
     this.loading = true;
-    this.errorMessage = "";
-    //get the room id from the path 
-    let id = this.route.snapshot.params.id;
+    this.errorMessage = '';
+    // get the room id from the path
+    const id = this.route.snapshot.params.id;
     this.idnew = id;
-    //id id = 0  then add new room otherwise edit existing room
-    if(id==0)
+    // id id = 0  then add new room otherwise edit existing room
+    if (id === 0)
     {
       this.editroom = false;
     }
@@ -139,24 +137,23 @@ export class EditRoomComponent implements OnInit {
     {
       this.editroom = true;
     }
-   console.log(id);
-   this.service.getRoombyId(this.idnew)
+    console.log(id);
+    this.service.getRoombyId(this.idnew)
       .subscribe(
-        (response) => {                           //next() callback
+        (response) => {                           // next() callback
           console.log('response received');
-         
-          this.room = response; 
+          this.room = response;
           console.log(this.room);
         },
-        (error) => {                              //error() callback
-          console.error('Request failed with error')
+        (error) => {                              // error() callback
+          console.error('Request failed with error');
           this.errorMessage = error;
           this.loading = false;
         },
-        () => {                                   //complete() callback
-          console.error('Request completed')      //This is actually not needed 
-          this.loading = false; 
-        })
+        () => {                                   // complete() callback
+          console.error('Request completed');     // This is actually not needed
+          this.loading = false;
+        });
   }
 
 }

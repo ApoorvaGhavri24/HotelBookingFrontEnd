@@ -9,18 +9,16 @@ import { map, catchError} from 'rxjs/operators';
 export class StatusService {
   private headers: HttpHeaders;
 
-  
-  baseURL: string = "https://localhost:44337/api/Status";
+  baseURL = 'https://localhost:44337/api/Status';
 
- 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
 
   }
-  public  getStatus() : Observable<any> {
-    return this.http.get(this.baseURL, {headers: this.headers})
+  public  getStatus(): Observable<any> {
+    return this.http.get(this.baseURL, {headers: this.headers});
   }
-  public  getStatusbyId(id) : Observable<any> {
-    return this.http.get(this.baseURL+ '/' + id, {headers: this.headers})
+  public  getStatusbyId(id): Observable<any> {
+    return this.http.get(this.baseURL + '/' + id, {headers: this.headers});
   }
 }

@@ -5,8 +5,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditRoomComponent } from './hotel-room/edit-room/edit-room.component';
 import { BookingRoomComponent } from './booking-room/booking-room.component'; 
 import { NewBookingComponent } from './booking-room/new-booking/new-booking.component'; 
-import{LoginComponent} from './login/login.component'
-//creating routes path
+import {LoginComponent} from './login/login.component'
+// creating routes path
 const routes: Routes = [
   {
   path: 'Booking',
@@ -19,11 +19,11 @@ const routes: Routes = [
         path: 'edit/:id',
         component: NewBookingComponent
     }
-  
+
   ]
 },
   {
-    
+
     path: 'Room',
     children: [
       {
@@ -34,7 +34,6 @@ const routes: Routes = [
           path: 'edit/:id',
           component: EditRoomComponent
       }
-    
     ]
 },
 {path: '', component: LoginComponent},

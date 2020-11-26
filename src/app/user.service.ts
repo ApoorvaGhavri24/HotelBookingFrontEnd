@@ -5,63 +5,57 @@ import {User} from './User';
   providedIn: 'root'
 })
 export class UserService {
- users : User[]
-  constructor() { 
-    this.users=[
-      new User(1,'apoorva','1234@evry' , 'manager'),
-      new User(2,'kavya','1234@evry' , 'clerk'),      
-      new User(3,'rahul','1234@evry' , 'clerk'),
-    
-  ]
-  
+ users: User[]
+  constructor() {
+    this.users = [
+      new User(1, 'apoorva', '1234@evry' , 'manager'),
+      new User(2, 'kavya', '1234@evry' , 'clerk'),
+      new User(3, 'rahul', '1234@evry' , 'clerk'),
+   ];
 
   }
 
 
-  public isUser(username : string , password: string):boolean
+  public isUser(username: string , password: string): boolean
   {
 
-        for(let  curuser of this.users)
+        for(let curuser of this.users)
       {
-        if(curuser.username ==username && curuser.password == password)
+        if (curuser.username === username && curuser.password === password)
         {
             return true;
         }
-      
       }
-      return false;
-      
+        return false;
   }
-  public isManager(username : string , password: string):boolean
+  public isManager(username: string , password: string): boolean
   {
 
-        for(let  curuser of this.users)
+        for (let curuser of this.users)
       {
-        if(curuser.username ==username && curuser.password == password && curuser.role =='manager')
+        if (curuser.username === username && curuser.password === password && curuser.role === 'manager')
         {
             return true;
         }
-      
       }
-      return false;
-      
+        return false;
   }
-  public getUsers():User[]
+  public getUsers(): User[]
   {
     return this.users;
   }
-  public IsClerk(username : string , password: string):boolean
+  public IsClerk(username: string , password: string): boolean
   {
 
-        for(let  curuser of this.users)
+        for(let curuser of this.users)
       {
-        if(curuser.username ==username && curuser.password == password && curuser.role =='clerk')
+        if (curuser.username === username && curuser.password === password && curuser.role === 'clerk')
         {
             return true;
         }
-      
+
       }
-      return false;
-      
+        return false;
+
   }
 }
