@@ -1,4 +1,4 @@
-import {Room} from './Room'
+import {Room} from './Room';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
@@ -9,7 +9,7 @@ import { map, catchError} from 'rxjs/operators';
 export class AmenityService {
   private headers: HttpHeaders;
 
-  baseURL = "https://localhost:44337/api/Amenities";
+  baseURL = 'https://localhost:44337/api/Amenities';
 
 
   constructor(private http: HttpClient) {

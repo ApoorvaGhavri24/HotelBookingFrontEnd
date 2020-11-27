@@ -6,14 +6,14 @@ import { ChartsModule } from 'ng2-charts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
 import { HotelRoomComponent } from './hotel-room/hotel-room.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RoomService } from './Room.service';
 import { StatusService } from './status.service';
 import { AmenityService } from 'c:/Users/EI11763/RoomBooking/src/app/amenity.service';
 import { RoomAminityService } from 'c:/Users/EI11763/RoomBooking/src/app/room-aminity.service';
-
+import { ToastrModule } from 'ngx-toastr';
 import { BookingService } from './booking.service';
 import { UserService } from './user.service';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -25,12 +25,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatNativeDateModule} from '@angular/material/core';
-import {  
-  CookieService  
+import {
+  CookieService
 } from 'ngx-cookie-service';
-import { BookingRoomComponent } from './booking-room/booking-room.component'; 
+import { BookingRoomComponent } from './booking-room/booking-room.component';
 import { NewBookingComponent } from './booking-room/new-booking/new-booking.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations'; 
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +43,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(
+      {
+        positionClass:  'toast-top-center',
+        closeButton: true,
+        preventDuplicates: true,
+      }
+    ), // ToastrModule added
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
@@ -55,9 +63,10 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     MatInputModule,
     MatNativeDateModule,
     ChartsModule
+  
   ],
- 
-  providers: [AmenityService,RoomService , UserService ,CookieService,StatusService,BookingService,DatePipe,RoomAminityService],
+
+  providers: [AmenityService, RoomService , UserService , CookieService, StatusService, BookingService, DatePipe, RoomAminityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

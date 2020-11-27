@@ -5,7 +5,7 @@ import {User} from './User';
   providedIn: 'root'
 })
 export class UserService {
- users: User[]
+ users: User[];
   constructor() {
     this.users = [
       new User(1, 'apoorva', '1234@evry' , 'manager'),
@@ -19,7 +19,7 @@ export class UserService {
   public isUser(username: string , password: string): boolean
   {
 
-        for(let curuser of this.users)
+        for (let curuser of this.users)
       {
         if (curuser.username === username && curuser.password === password)
         {
@@ -47,7 +47,7 @@ export class UserService {
   public IsClerk(username: string , password: string): boolean
   {
 
-        for(let curuser of this.users)
+        for ( let curuser of this.users)
       {
         if (curuser.username === username && curuser.password === password && curuser.role === 'clerk')
         {

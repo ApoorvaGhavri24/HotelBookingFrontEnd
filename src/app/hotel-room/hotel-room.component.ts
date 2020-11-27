@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { RoomService } from '../Room.service';
-import {Room} from '../Room'
+import {Room} from '../Room';
 import { UserService } from '../user.service';
 import { User } from '../User';
 import { StatusService } from '../status.service';
 import { Status } from '../Status';
-import { ActivatedRoute ,Router} from '@angular/router';
+import { ActivatedRoute , Router} from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 import {
@@ -39,7 +39,7 @@ export class HotelRoomComponent implements OnInit {
 
   constructor( public statusservice: StatusService, public service: RoomService , private route: ActivatedRoute,
                public userservice: UserService , private router: Router, private cookieService: CookieService ,
-               private modalService: NgbModal) 
+               private modalService: NgbModal)
    {
 
    }
@@ -60,25 +60,25 @@ export class HotelRoomComponent implements OnInit {
            console.log('value received');
            console.log(this.room);
            // if property in adultcapacity then  update the adultcapacity value
-           if (property === 'adultsCapacity')
+           if (property == 'adultsCapacity')
            {
              console.log('hello adult');
              this.room.adultsCapacity =   +event.target.textContent;
              console.log(this.room);
            }
-           if (property === 'childrenCapacity')
+           if (property == 'childrenCapacity')
            {
             console.log('hello child');
             this.room.childrenCapacity =  + event.target.textContent;
             console.log(this.room);
            }
-           if ( property === 'price')
+           if ( property == 'price')
            {
             console.log('hello price');
             this.room.price =  + event.target.textContent;
             console.log(this.room);
            }
-           if (this.room.childrenCapacity === null){
+           if (this.room.childrenCapacity == null){
             this.room.childrenCapacity = 0;
           }
            this.service.updateRoom(this.room)
@@ -188,9 +188,9 @@ export class HotelRoomComponent implements OnInit {
 
 
   private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
+    if (reason == ModalDismissReasons.ESC) {
       return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    } else if (reason == ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
       return  `with: ${reason}`;

@@ -94,6 +94,9 @@
 
    
     </div>
+    <button (click) = "showSuccess()">Oprn Angular Toastr Success</button>
+<br/><br/>
+<button (click) = "showError()">Oprn Angular Toastr Error</button>
     <div  style="margin-left:140px" >
       <div *ngIf="emptycheckoutlist; then thencheckout else elsecheckout"></div>
       <ng-template #thencheckout>   

@@ -1,7 +1,7 @@
 import {Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import {Room} from 'c:/Users/EI11763/RoomBooking/src/app/Room';
 import {RoomService} from 'c:/Users/EI11763/RoomBooking/src/app/Room.service';
-import { ActivatedRoute ,Router} from '@angular/router';
+import { ActivatedRoute , Router} from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { NgForm } from '@angular/forms';
 import {
@@ -64,9 +64,9 @@ export class EditRoomComponent implements OnInit {
     });
   }
   private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
+    if (reason == ModalDismissReasons.ESC) {
       return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    } else if (reason == ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
       return  `with: ${reason}`;
@@ -78,7 +78,7 @@ export class EditRoomComponent implements OnInit {
   }
  // called when id=0 and adding new room
   addRoom(): void {
-      if (this.room.childrenCapacity === null){
+      if (this.room.childrenCapacity == null){
         this.room.childrenCapacity = 0;
       }
       console.log(this.room);
@@ -119,7 +119,7 @@ export class EditRoomComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.cookieService.get('username'));
-    if (this.cookieService.get('username') !== 'apoorva')
+    if (this.cookieService.get('username') != 'apoorva')
     {
       this.router.navigateByUrl('/');
     }
@@ -129,7 +129,7 @@ export class EditRoomComponent implements OnInit {
     const id = this.route.snapshot.params.id;
     this.idnew = id;
     // id id = 0  then add new room otherwise edit existing room
-    if (id === 0)
+    if (id == 0)
     {
       this.editroom = false;
     }

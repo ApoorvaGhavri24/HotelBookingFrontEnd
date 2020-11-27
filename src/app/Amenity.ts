@@ -3,5 +3,4 @@ export  class  Amenity  {
     label: string;
     amenityorder: number;
     isActive: boolean;
-
-}
+    }

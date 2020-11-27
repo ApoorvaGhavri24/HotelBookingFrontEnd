@@ -1,10 +1,10 @@
-import {Room} from './Room'
+import {Room} from './Room';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError} from 'rxjs/operators';
 
-// The Injectable is a decorator, which you need to add to the consumer of the dependency. 
+// The Injectable is a decorator, which you need to add to the consumer of the dependency.
 @Injectable({
     providedIn: 'root'
 })

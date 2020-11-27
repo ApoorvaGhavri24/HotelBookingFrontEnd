@@ -96,7 +96,7 @@ isuser = false;
     console.log('min date after change: ' + this.minDate);
     const id = this.route.snapshot.params.id;
     this.idnew = id;
-    if (id === 0)
+    if (id == 0)
     {
       this.editBooking = false;
       console.log('hello id=0');
@@ -118,17 +118,17 @@ isuser = false;
 
        console.log('current date :' + curdate);
        console.log('checkin date date :' + editcheckindate);
-       if ((curdate >= editcheckindate) && (curdate <= editcheckoutdate) && (this.curBookingcomp.statusId === 2))
+       if ((curdate >= editcheckindate) && (curdate <= editcheckoutdate) && (this.curBookingcomp.statusId == 2))
         {
         this.showCheckOut = true;
         }
-       if ((editcheckindate === curdate) && ( this.curBookingcomp.statusId === 1) )
+       if ((editcheckindate == curdate) && ( this.curBookingcomp.statusId == 1) )
        {
          this.showCheckin = true;
          this.showCancel = true;
          console.log(' today checkin date ');
        }
-       if ((this.curBookingcomp.statusId === 1))
+       if ((this.curBookingcomp.statusId == 1))
        {
           this.showCancel = true;
        }
@@ -279,14 +279,14 @@ isuser = false;
           console.log('true' + this.Bookings[j]['guestFirstName']);
           t1 = (formatDate(this.Bookings[j]['checkInDate'], 'yyyy-MM-dd', 'en'));
           t2 = (formatDate(this.Bookings[j]['checkOutDate'], 'yyyy-MM-dd', 'en'));
-          if ((this.availrooms[i].id === this.Bookings[j].roomId))
+          if ((this.availrooms[i].id == this.Bookings[j].roomId))
             {
               console.log('inside room id');
               if (((this.curBookingcomp.checkInDate >= t1) && ( this.curBookingcomp.checkInDate <= t2)) ||
               ((this.curBookingcomp.checkOutDate >= t1) && this.curBookingcomp.checkOutDate <= t2))
               {
                 console.log('inside date');
-                if  ((this.curBookingcomp.statusId !== 4))
+                if  ((this.curBookingcomp.statusId != 4))
                 {
                   console.log('checkin date' + t1);
                   console.log('checkout date' + t2);
@@ -444,9 +444,9 @@ isuser = false;
 
 
   private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
+    if (reason == ModalDismissReasons.ESC) {
       return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+    } else if (reason == ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
       return  `with: ${reason}`;

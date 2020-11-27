@@ -7,6 +7,8 @@ import {RoomAminityService} from 'c:/Users/EI11763/RoomBooking/src/app/room-amin
 import {Amenity} from 'c:/Users/EI11763/RoomBooking/src/app/Amenity';
 import {RoomAminity} from 'c:/Users/EI11763/RoomBooking/src/app/RoomAminity';
 import {newbooking} from 'c:/Users/EI11763/RoomBooking/src/app/newbooking';
+import { ToastrService } from 'ngx-toastr';
+
 import {Room} from 'c:/Users/EI11763/RoomBooking/src/app/Room';
 import { ActivatedRoute , Router} from '@angular/router';
 import { ChartDataSets, ChartOptions } from 'chart.js';
@@ -75,11 +77,24 @@ export class DashboardComponent implements OnInit {
   roomamenity = new RoomAminity();
   constructor(private datePipe: DatePipe, private router: Router, private route: ActivatedRoute,
               public service: BookingService , public roomservice: RoomService, private cookieService: CookieService ,
-              public userservice: UserService, public amenityservice: AmenityService, public roomAminityService: RoomAminityService )
+              public userservice: UserService, public amenityservice: AmenityService, public roomAminityService: RoomAminityService
+            , private toastr: ToastrService )
   { }
 
+  showSuccess(): void {
+    this.toastr.success('Hello world!', 'Toastr fun!',
+    {
+      enableHtml :  true
+    }
+  );
+  }
+  showError(): void {
+  this.toastr.error('everything is broken', 'Major Error', {
+  timeOut: 3000
+  });
+  }
   ngOnInit(): void {
-    this.getoccupancyrate()
+    this.getoccupancyrate();
    // getting username and password stored in cookies and checking of the user is a valid user or not
     this.username = this.cookieService.get('username');
     this.password = this.cookieService.get('password');
@@ -113,16 +128,16 @@ export class DashboardComponent implements OnInit {
         console.log('response received');
         console.log(response);
         this.Todaycheckins = response;
-        if (this.Todaycheckins.length === 0)
+        if (this.Todaycheckins.length == 0)
        {
          this.emptycheckinlist = true;
          console.log('empty checkin list');
        }
-        for (let i = 0; i < this.Todaycheckins.length; i++) {
-        this.roomservice.getRoombyId(this.Todaycheckins[i]['roomId'])
+        for (let checkintoday of  this.Todaycheckins) {
+        this.roomservice.getRoombyId(checkintoday.roomId)
         .subscribe(data => {
           console.log(data);
-          this.Todaycheckins[i].room = data;
+          checkintoday.room = data;
           // this.router.navigateByUrl('/Room');
         }) ;
       }
@@ -132,7 +147,7 @@ export class DashboardComponent implements OnInit {
         console.log(error);
       },
       () => {                                   // complete() callback
-        console.error('Request completed');      // This is actually not needed 
+        console.error('Request completed');      // This is actually not needed
       });
 
     // subscribed to get the bookings whose chekout date is current date
@@ -140,18 +155,18 @@ export class DashboardComponent implements OnInit {
     .subscribe(
         (response) => {                           // next() callback
           console.log('response received');
-          console.log(response)
+          console.log(response);
           this.TodaycheckOuts = response;
-          if (this.TodaycheckOuts.length === 0)
+          if (this.TodaycheckOuts.length == 0)
           {
             this.emptycheckoutlist = true;
-            console.log('ebmpty checkin list')
+            console.log('ebmpty checkin list');
           }
-          for (let i = 0; i < this.TodaycheckOuts.length; i++) {
-          this.roomservice.getRoombyId(this.TodaycheckOuts[i]['roomId'])
+          for (let checkoutToday of  this.TodaycheckOuts) {
+          this.roomservice.getRoombyId(checkoutToday.roomId)
           .subscribe(data => {
-            console.log(data)
-            this.TodaycheckOuts[i].room = data;
+            console.log(data);
+            checkoutToday.room = data;
             // this.router.navigateByUrl('/Room');
           }) ;
         }
@@ -179,7 +194,7 @@ export class DashboardComponent implements OnInit {
           this.updatebooking.statusId =  2;
           this.service.UpdateBooking(this.updatebooking)
           .subscribe(data => {
-            console.log(data)
+            console.log(data);
             console.log('checked in ');
             window.location.reload();
                 }) ;
@@ -203,7 +218,7 @@ export class DashboardComponent implements OnInit {
         (response) => {                           // next() callback
          this.room = response;
          this.roomamenity.roomId = this.room.id;
-         console.log(this.room)
+         console.log(this.room);
          this.service.GetBookingbyRoomnumber(this.room.id)
           .subscribe(data => {
             this.showaddamenity = true;
@@ -292,7 +307,7 @@ export class DashboardComponent implements OnInit {
           this.updatebooking.statusId =  3;
           this.service.UpdateBooking(this.updatebooking)
           .subscribe(data => {
-            console.log(data)
+            console.log(data);
             console.log('checked out ');
             window.location.reload();
             }) ;

@@ -1,6 +1,6 @@
-import {Room} from './Room'
-import {Status} from './Status'
-export  class  Booking  { 
+import {Room} from './Room';
+import {Status} from './Status';
+export  class  Booking  {
     id: number;
     guestLastName: string;
     guestFirstName: string;
@@ -8,9 +8,9 @@ export  class  Booking  {
     checkOutDate: Date;
     numberOfAdults: number;
     numberOfChildren: number;
-    roomId:number;
-    statusId :number;
-    room:Room;
-    status:Status;
+    roomId: number;
+    statusId: number;
+    room: Room;
+    status: Status;
 
 }
