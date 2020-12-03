@@ -18,26 +18,26 @@ export class BookingService {
 
   }
   public  getBookingbyId(id): Observable<any> {
-    return this.http.get(this.baseURL + '/getBookingbById/' + id, {headers: this.headers});
+    return this.http.get(this.baseURL + '/booking/' + id, {headers: this.headers});
   }
   public  getBookingbycheckindate(date): Observable<any> {
-    return this.http.get(this.baseURL + '/getBookingbycheckin/' + date, {headers: this.headers});
+    return this.http.get(this.baseURL + '/booking/checkIn/' + date, {headers: this.headers});
   }
   public  getBookingbycheckoutdate(date): Observable<any> {
-    return this.http.get(this.baseURL + '/getBookingbycheckout/' + date, {headers: this.headers});
+    return this.http.get(this.baseURL + '/booking/checkOut/' + date, {headers: this.headers});
   }
   public  Occupancy(date): Observable<any> {
-    return this.http.get(this.baseURL + '/occupancy/' + date, {headers: this.headers});
+    return this.http.get(this.baseURL + '/booking/occupancy/' + date, {headers: this.headers});
   }
   public  GetBookingbyRoomnumber(id): Observable<any> {
-    return this.http.get(this.baseURL + '/getBookingbyRoomnumber/' + id, {headers: this.headers});
+    return this.http.get(this.baseURL + '/booking/roomNumber/' + id, {headers: this.headers});
   }
 
   public UpdateBooking(booking: Booking) {
-    return this.http.put(this.baseURL + '/updateBooking/' + booking.id, booking, {headers: this.headers});
+    return this.http.put(this.baseURL + '/booking/' + booking.id, booking, {headers: this.headers});
   }
   public  getBooking(): Observable<any> {
-    return this.http.get(this.baseURL + '/getBookings', {headers: this.headers}).pipe(
+    return this.http.get(this.baseURL + '/booking', {headers: this.headers}).pipe(
       map((response: any) => {
         // adjust data before return
         return response;
@@ -48,12 +48,12 @@ export class BookingService {
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(booking);
     // console.log(body)
-    return this.http.put(this.baseURL + '/getBooking2', body, {'headers': headers});
+    return this.http.put(this.baseURL + '/booking/room', body, {'headers': headers});
   }
   public addBooking(booking: Booking): Observable<any> {
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(booking);
     console.log(body);
-    return this.http.post(this.baseURL + '/addBooking' , body, {'headers': headers});
+    return this.http.post(this.baseURL + '/booking' , body, {'headers': headers});
   }
 }

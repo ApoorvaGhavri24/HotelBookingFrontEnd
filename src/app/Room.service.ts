@@ -12,7 +12,7 @@ import { map, catchError} from 'rxjs/operators';
     private headers: HttpHeaders;
 
   // api endpoint
-    baseURL = 'https://localhost:44337/api/Rooms';
+    baseURL = 'https://localhost:44337/api';
  // injecting Httpclient to make http requests
     constructor(private http: HttpClient) {
       this.headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
@@ -20,23 +20,23 @@ import { map, catchError} from 'rxjs/operators';
     }
  // returns observable basically async data which we get by subscribing to the Http requests
     public  getRooms(): Observable<any> {
-        return this.http.get(this.baseURL, {headers: this.headers});
+        return this.http.get(this.baseURL+ '/room', {headers: this.headers});
       }
       public  getRoombyId(id): Observable<any> {
-        return this.http.get(this.baseURL + '/' + id, {headers: this.headers});
+        return this.http.get(this.baseURL + '/room/' + id, {headers: this.headers});
       }
       public updateRoom(room: Room) {
-        return this.http.put(this.baseURL + '/' + room.id, room, {headers: this.headers});
+        return this.http.put(this.baseURL + '/room/' + room.id, room, {headers: this.headers});
       }
 
 
       public  GetRoombyroomnumber(rno): Observable<any> {
-        return this.http.get(this.baseURL + '/GetRoombyroomnumber/' + rno, {headers: this.headers});
+        return this.http.get(this.baseURL + '/room/roomNumber/' + rno, {headers: this.headers});
       }
       public addRoom(room: Room): Observable<any> {
         const headers = { 'content-type': 'application/json'};
         const body = JSON.stringify(room);
         console.log(body);
-        return this.http.post(this.baseURL , body, {'headers' : headers});
+        return this.http.post(this.baseURL + '/room', body, {'headers' : headers});
       }
 }
