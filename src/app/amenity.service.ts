@@ -16,8 +16,10 @@ export class AmenityService {
     this.headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});
 
    }
-
    public  getAmenity(): Observable<any> {
+    return this.http.get(this.baseURL + '/amenity', {headers: this.headers});
+  }
+   public  getAmenities(): Observable<any> {
     return this.http.get(this.baseURL + '/amenity', {headers: this.headers});
   }
   public  getAmenityById(id): Observable<any> {
