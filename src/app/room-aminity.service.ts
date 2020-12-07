@@ -33,6 +33,9 @@ export class RoomAminityService {
     console.log(body);
     return this.http.post(this.baseURL , body, {'headers': headers});
   }
+  public  getAmenity(): Observable<any> {
+    return this.http.get(this.baseURL + '/amenity', {headers: this.headers});
+  }
 
 
 
