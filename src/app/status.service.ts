@@ -9,7 +9,7 @@ import { map, catchError} from 'rxjs/operators';
 export class StatusService {
   private headers: HttpHeaders;
 
-  baseURL = 'https://localhost:44337/api/Status';
+  baseURL = 'https://localhost:44337/api';
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({'Content-Type': 'application/json; charset=utf-8'});

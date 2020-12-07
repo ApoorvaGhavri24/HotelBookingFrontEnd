@@ -109,16 +109,17 @@ export class DashboardComponent implements OnInit {
     this.amenityservice.getAmenities()
     .subscribe(
       (response) => {
-        console.log('response received');
+        console.log('amenity list  received');
         this.amenitylist = response;
        // this.updateamenity.label
         console.log(response);
       },
       (error) => {
-        console.error('Request failed with error');
+        console.log('amenity error :');
+        console.error(error);
       },
       () => {
-        console.error('Request completed');
+        console.error('amenity Request completed');
       });
 
     // subscribed to get the bookings whose checkin date is current date

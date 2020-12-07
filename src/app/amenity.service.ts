@@ -9,7 +9,7 @@ import { map, catchError} from 'rxjs/operators';
 export class AmenityService {
   private headers: HttpHeaders;
 
-  baseURL = 'https://localhost:44337/api/Amenities';
+  baseURL = 'https://localhost:44337/api';
 
 
   constructor(private http: HttpClient) {
@@ -17,10 +17,10 @@ export class AmenityService {
 
    }
 
-   public  getAmenities(): Observable<any> {
-    return this.http.get(this.baseURL, {headers: this.headers});
+   public  getAmenity(): Observable<any> {
+    return this.http.get(this.baseURL + '/amenity', {headers: this.headers});
   }
   public  getAmenityById(id): Observable<any> {
-    return this.http.get(this.baseURL + '/' + id, {headers: this.headers});
+    return this.http.get(this.baseURL +  '/amenity/' + id, {headers: this.headers});
   }
 }
