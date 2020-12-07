@@ -106,7 +106,7 @@ export class DashboardComponent implements OnInit {
     const t = formatDate(new Date(), 'yyyy-MM-ddT00:00:00', 'en');
     // subscribing to get observable data
     // subscribed to get the amenities available
-    this.amenityservice.getAmenities()
+    this.amenityservice.getAmenity()
     .subscribe(
       (response) => {
         console.log('amenity list  received');
