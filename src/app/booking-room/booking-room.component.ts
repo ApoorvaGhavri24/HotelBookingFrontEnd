@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingService } from '../booking.service';
 import { RoomService } from '../Room.service';
+import { AmenityService } from '../Amenity.service';
 import {Room} from '../Room'
 import { UserService } from '../user.service';
 import { User } from '../User';
@@ -36,7 +37,7 @@ export class BookingRoomComponent implements OnInit {
   isuser = false;
   constructor(public statusservice: StatusService, public roomservice: RoomService, private route: ActivatedRoute,
               public userservice: UserService , private router: Router, public service: RoomService  ,
-              public bookingservice: BookingService, private cookieService: CookieService)
+              public bookingservice: BookingService, private cookieService: CookieService , private amenityservice:AmenityService)
   {
   }
 

@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import {formatDate , DatePipe} from '@angular/common';
-import {RoomService} from 'c:/Users/EI11763/RoomBooking/src/app/Room.service';
-import {Booking} from 'c:/Users/EI11763/RoomBooking/src/app/Booking';
-import {AmenityService} from 'c:/Users/EI11763/RoomBooking/src/app/amenity.service';
-import {RoomAminityService} from 'c:/Users/EI11763/RoomBooking/src/app/room-aminity.service';
-import {Amenity} from 'c:/Users/EI11763/RoomBooking/src/app/Amenity';
-import {RoomAminity} from 'c:/Users/EI11763/RoomBooking/src/app/RoomAminity';
-import {newbooking} from 'c:/Users/EI11763/RoomBooking/src/app/newbooking';
+import {RoomService} from '../Room.service';
+import {Booking} from '../Booking';
+import {AmenityService} from '../amenity.service';
+import {RoomAminityService} from '../room-aminity.service';
+import {Amenity} from '../Amenity';
+import {RoomAminity} from '../RoomAminity';
+import {newbooking} from '../newbooking';
 import { ToastrService } from 'ngx-toastr';
 
-import {Room} from 'c:/Users/EI11763/RoomBooking/src/app/Room';
+import {Room} from '../Room';
 import { ActivatedRoute , Router} from '@angular/router';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
-import { UserService } from 'c:/Users/EI11763/RoomBooking/src/app/user.service';
+import { UserService } from '../user.service';
 import {
   CookieService
 } from 'ngx-cookie-service';
