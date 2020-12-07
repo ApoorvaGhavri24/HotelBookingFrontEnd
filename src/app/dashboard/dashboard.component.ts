@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {formatDate , DatePipe} from '@angular/common';
 import {RoomService} from '../Room.service';
 import {Booking} from '../Booking';
+
 import {AmenityService} from '../amenity.service';
 import {RoomAminityService} from '../room-aminity.service';
 import {Amenity} from '../Amenity';
@@ -77,7 +78,7 @@ export class DashboardComponent implements OnInit {
   roomamenity = new RoomAminity();
   constructor(private datePipe: DatePipe, private router: Router, private route: ActivatedRoute,
               public service: BookingService , public roomservice: RoomService, private cookieService: CookieService ,
-              public userservice: UserService, public amenityservice: AmenityService, public roomAminityService: RoomAminityService
+              public userservice: UserService, public amenityServ: AmenityService, public roomAminityService: RoomAminityService
             , private toastr: ToastrService )
   { }
 
@@ -106,7 +107,7 @@ export class DashboardComponent implements OnInit {
     const t = formatDate(new Date(), 'yyyy-MM-ddT00:00:00', 'en');
     // subscribing to get observable data
     // subscribed to get the amenities available
-    this.amenityservice.getAmenity()
+    this.amenityServ.getAmenities()
     .subscribe(
       (response) => {
         console.log('amenity list  received');
