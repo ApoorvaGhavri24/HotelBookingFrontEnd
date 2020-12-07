@@ -21,4 +21,7 @@ export class StatusService {
   public  getStatusbyId(id): Observable<any> {
     return this.http.get(this.baseURL + '/status/'  + id, {headers: this.headers});
   }
+  public  getStatusnew(): Observable<any> {
+    return this.http.get(this.baseURL + '/status', {headers: this.headers});
+  }
 }
