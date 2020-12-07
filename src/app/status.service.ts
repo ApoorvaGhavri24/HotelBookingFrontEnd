@@ -24,4 +24,7 @@ export class StatusService {
   public  getStatusnew(): Observable<any> {
     return this.http.get(this.baseURL + '/status', {headers: this.headers});
   }
+  public  getAmenity(): Observable<any> {
+    return this.http.get(this.baseURL + '/amenity', {headers: this.headers});
+  }
 }
