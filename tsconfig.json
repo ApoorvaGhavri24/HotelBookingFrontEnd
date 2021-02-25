@@ -3,7 +3,8 @@
   "compileOnSave": false,
   "include": [
     "src/**/*.ts",
-    "tests/*.ts"
+    "tests/*.ts",
+    "C:/Users/EI11763/ProjectGit/HotelBookingFrontEnd/src/app/Amenity.service.ts"
   ] ,
   "compilerOptions": {  
     "baseUrl": "./",

@@ -11,7 +11,7 @@ import { HotelRoomComponent } from './hotel-room/hotel-room.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RoomService } from './Room.service';
 import { StatusService } from './status.service';
-import { AmenityService } from './amenity.service';
+import { AmenityService } from 'C:/Users/EI11763/ProjectGit/HotelBookingFrontEnd/src/app/Amenity.service';
 import { RoomAminityService } from './room-aminity.service';
 import { ToastrModule } from 'ngx-toastr';
 import { BookingService } from './booking.service';

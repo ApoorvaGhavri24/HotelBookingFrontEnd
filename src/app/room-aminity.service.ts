@@ -10,7 +10,7 @@ export class RoomAminityService {
 
   private headers: HttpHeaders;
 
-  baseURL = 'https://localhost:44337/api/RoomAminities';
+  baseURL = 'https://localhost:44337/api';
 
 
   constructor(private http: HttpClient) {
@@ -18,24 +18,22 @@ export class RoomAminityService {
 
   }
   public  getRoomAmenities(): Observable<any> {
-    return this.http.get(this.baseURL, {headers: this.headers});
+    return this.http.get(this.baseURL+ '/roomAminity', {headers: this.headers});
   }
   public  getRoomAmenitiesbyId(id): Observable<any> {
-    return this.http.get(this.baseURL + '/' + id, {headers: this.headers});
+    return this.http.get(this.baseURL+ '/roomAminity/' + id, {headers: this.headers});
   }
   public updateRoomAmenities(roomamenity: RoomAminity) {
-    return this.http.put(this.baseURL + '/' + roomamenity.id, roomamenity, {headers: this.headers});
+    return this.http.put(this.baseURL + '/roomAminity/' + roomamenity.id, roomamenity, {headers: this.headers});
   }
 
   public addRoomAmenities(roomamenity: RoomAminity): Observable<any> {
     const headers = { 'content-type': 'application/json'};
     const body = JSON.stringify(roomamenity);
     console.log(body);
-    return this.http.post(this.baseURL , body, {'headers': headers});
+    return this.http.post(this.baseURL + '/roomAminity', body, {'headers': headers});
   }
-  public  getAmenity(): Observable<any> {
-    return this.http.get(this.baseURL + '/amenity', {headers: this.headers});
-  }
+  
 
 
 

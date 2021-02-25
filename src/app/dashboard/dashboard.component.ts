@@ -3,7 +3,7 @@ import {formatDate , DatePipe} from '@angular/common';
 import {RoomService} from '../Room.service';
 import {Booking} from '../Booking';
 
-import {AmenityService} from '../amenity.service';
+import {AmenityService} from 'C:/Users/EI11763/ProjectGit/HotelBookingFrontEnd/src/app/Amenity.service';
 import {RoomAminityService} from '../room-aminity.service';
 import {Amenity} from '../Amenity';
 import {RoomAminity} from '../RoomAminity';
@@ -107,7 +107,7 @@ export class DashboardComponent implements OnInit {
     const t = formatDate(new Date(), 'yyyy-MM-ddT00:00:00', 'en');
     // subscribing to get observable data
     // subscribed to get the amenities available
-    this.amenityServ.getAmenities()
+    this.amenityServ.getAmenity()
     .subscribe(
       (response) => {
         console.log('amenity list  received');
